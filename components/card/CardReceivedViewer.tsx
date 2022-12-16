@@ -21,7 +21,7 @@ const CardReceivedViewer = () => {
 
   const renderItem = (item: any) => {
     // todo: I think something here is causing render errors when switching wallets
-    const dynamicUrl = `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/card/dynamic/${recipientIds[item]}`
+    const dynamicUrl = recipientIds ? `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/card/dynamic/${recipientIds[item]}` : "";
     const [card, loadCard] = useState<any | undefined>(undefined)
 
     useEffect(() => {

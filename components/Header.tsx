@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 import ConnectButton from './ConnectButton'
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 interface NavLink {
@@ -36,7 +35,7 @@ const NavItem = ({ item }: { item: NavLink }) => {
   )
 }
 
-const Header: NextPage = () => {
+const Header = () => {
   const { chain } = useNetwork()
   const { address } = useAccount()
   const [domLoaded, setDomLoaded] = useState(false)
@@ -78,6 +77,10 @@ const Header: NextPage = () => {
           </HSplit>
         </Menu>
       </Nav>
+    )
+  } else {
+    return (
+      <p>Error loading header.</p>
     )
   }
 }

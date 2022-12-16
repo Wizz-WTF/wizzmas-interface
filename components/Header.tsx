@@ -1,48 +1,51 @@
-import styled from 'styled-components'
-import { useEffect, useState } from 'react'
-import { useAccount, useNetwork } from 'wagmi'
-import ConnectButton from './ConnectButton'
-import { useRouter } from 'next/router'
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { useAccount, useNetwork } from "wagmi";
+import ConnectButton from "./ConnectButton";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 
 interface NavLink {
-  name: string
-  path: string
+  name: string;
+  path: string;
 }
 
 const navLinks: NavLink[] = [
-  { name: 'Covers', path: '/' },
+  { name: "Covers", path: "/covers" },
   {
-    name: 'Send Cards',
-    path: '/send',
+    name: "Send Cards",
+    path: "/send",
   },
   {
-    name: 'My Cards',
-    path: '/view',
+    name: "My Cards",
+    path: "/view",
   },
   {
-    name: 'Gallery',
-    path: '/gallery',
+    name: "Gallery",
+    path: "/gallery",
   },
-]
+];
 
 const NavItem = ({ item }: { item: NavLink }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <p>
-      <a href={item.path}>{router.pathname === item.path ? `[ ${item.name} ]` : item.name}</a>
+      <a href={item.path}>
+        {router.pathname === item.path ? `[ ${item.name} ]` : item.name}
+      </a>
     </p>
-  )
-}
+  );
+};
 
-const Header = () => {
-  const { chain } = useNetwork()
-  const { address } = useAccount()
-  const [domLoaded, setDomLoaded] = useState(false)
+const Header: NextPage = () => {
+  const { chain } = useNetwork();
+  const { address } = useAccount();
+  const [domLoaded, setDomLoaded] = useState(false);
 
   useEffect(() => {
-    setDomLoaded(true)
-  }, [])
+    setDomLoaded(true);
+  }, []);
 
   /*const wrongNetwork =
         (address &&
@@ -53,37 +56,37 @@ const Header = () => {
         (chain?.id != 31337 &&
             process.env.NEXT_PUBLIC_ALCHEMY_NETWORK == "mainnet");*/
 
-  const wrongNetwork = false
+  const wrongNetwork = false;
 
-  if (domLoaded) {
-    return (
-      <Nav>
-        <Title>
-          <a href="/">
-            <h1>Wizz Cards</h1>
-          </a>
-          <Connect>
-            <ConnectButton />
-            {wrongNetwork && <WrongNetwork>Wallet connected to wrong Network!</WrongNetwork>}
-          </Connect>
-        </Title>
-        <Menu>
-          <HSplit>
-            <Buttons>
-              {navLinks.map((l, key) => (
-                <NavItem item={l} key={key} />
-              ))}
-            </Buttons>
-          </HSplit>
-        </Menu>
-      </Nav>
-    )
-  } else {
-    return (
-      <p>Error loading header.</p>
-    )
-  }
-}
+  return (
+    <>
+      {domLoaded && (
+        <Nav>
+          <Title>
+            <a href="/">
+              <h1>Wizz Cards</h1>
+            </a>
+            <Connect>
+              <ConnectButton />
+              {wrongNetwork && (
+                <WrongNetwork>Wallet connected to wrong Network!</WrongNetwork>
+              )}
+            </Connect>
+          </Title>
+          <Menu>
+            <HSplit>
+              <Buttons>
+                {navLinks.map((l, key) => (
+                  <NavItem item={l} key={key} />
+                ))}
+              </Buttons>
+            </HSplit>
+          </Menu>
+        </Nav>
+      )}
+    </>
+  );
+};
 
 const Nav = styled.nav`
   top: 0px;
@@ -94,8 +97,9 @@ const Nav = styled.nav`
   justify-content: space-between;
   margin-bottom: 3em;
   flex: none;
-`
+`;
 
+`
 const Title = styled.div`
   padding-left: 2em;
   padding-right: 2em;
@@ -105,7 +109,7 @@ const Title = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-`
+`;
 
 const Connect = styled.div`
   display: flex;
@@ -147,4 +151,4 @@ const WrongNetwork = styled.div`
   font-size: small;
 `
 
-export default Header
+export default Header;

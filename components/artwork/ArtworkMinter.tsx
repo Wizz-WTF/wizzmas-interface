@@ -1,16 +1,14 @@
-import { NextPage } from 'next'
-import { useState } from 'react'
-import { useAccount, useContractRead } from 'wagmi'
-import WizzmasArtworkMinterArtifact from '../../contracts/artifacts/WizzmasArtworkMinter.json'
-import ArtworkClaim from './ArtworkClaim'
-import ArtworkMint from './ArtworkMint'
-import CoverViewer from './CoverViewer'
-import { MediumTitle, SmallTitle } from '../generic/StyledComponents'
+import { NextPage } from "next";
+import { useAccount, useContractRead } from "wagmi";
+import WizzmasArtworkMinterArtifact from "../../contracts/artifacts/WizzmasArtworkMinter.json";
+import ArtworkClaim from "./ArtworkClaim";
+import ArtworkMint from "./ArtworkMint";
+import CoverViewer from "./CoverViewer";
+import { MediumTitle, SmallTitle } from "../generic/StyledComponents";
 
 const ArtworkMinter: NextPage = () => {
-  const [artworkType, setArtworkType] = useState<number | undefined>(undefined)
-
-  const { address } = useAccount()
+  const { address } = useAccount();
+  
   const {
     data: canClaim,
     isError: isCanClaimError,
@@ -29,13 +27,20 @@ const ArtworkMinter: NextPage = () => {
   } = useContractRead({
     addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
     contractInterface: WizzmasArtworkMinterArtifact.abi,
-    functionName: 'mintEnabled',
-  })
+
+    functionName: "mintEnabled",
+  });
+
+  if (isMintEnabledError) {
+    return <SmallTitle>Could not read contract information!</SmallTitle>;
+  }
 
   if (mintEnabled) {
     return (
       <>
         <MediumTitle>Wizzmas Cover</MediumTitle>
+        {isMintEnabledLoading ||
+          (isCanClaimLoading && <SmallTitle>Loading...</SmallTitle>)}
         <CoverViewer />
         {!mintEnabled && <SmallTitle>Mint is Over!</SmallTitle>}
         {!address && mintEnabled && <SmallTitle>Connect wallet to mint!</SmallTitle>}
@@ -46,6 +51,6 @@ const ArtworkMinter: NextPage = () => {
   } else {
     return <p>Mint is closed!</p>
   }
-}
+};
 
-export default ArtworkMinter
+export default ArtworkMinter;

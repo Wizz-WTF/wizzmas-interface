@@ -99,7 +99,6 @@ const Nav = styled.nav`
   flex: none;
 `;
 
-`
 const Title = styled.div`
   padding-left: 2em;
   padding-right: 2em;

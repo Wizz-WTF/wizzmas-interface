@@ -1,16 +1,16 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const LargeTitle = styled.h1`
   color: yellow;
-`;
+`
 
 export const MediumTitle = styled.h2`
   color: white;
-`;
+`
 
 export const SmallTitle = styled.h3`
   color: white;
-`;
+`
 
 export const VStack = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ export const VStack = styled.div`
   align-content: stretch;
   flex-wrap: wrap;
   gap: 1em;
-`;
+`
 
 export const HStack = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ export const HStack = styled.div`
   align-content: stretch;
   flex-wrap: wrap;
   gap: 1em;
-`;
+`
 
 export const Segment = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ export const Segment = styled.div`
   align-content: stretch;
   flex-wrap: no-wrap;
   gap: 1em;
-`;
+`
 
 export const PrimaryButton = styled.button`
   font-family: Alagard;
@@ -80,7 +80,7 @@ export const Button = styled.button`
     color: gray;
     background-color: darkgray;
   }
-`;
+`
 
 export const TextInput = styled.input`
   font-family: Alagard;
@@ -90,4 +90,4 @@ export const TextInput = styled.input`
   background: #00000000;
   border: dashed;
   border-color: #222;
-`;
+`

@@ -99,6 +99,7 @@ const Nav = styled.nav`
   flex: none;
 `;
 
+`
 const Title = styled.div`
   padding-left: 2em;
   padding-right: 2em;
@@ -116,13 +117,13 @@ const Connect = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 0.5em;
-`;
+`
 
 const Menu = styled.div`
   background: #111d;
   padding-left: 2em;
   padding-right: 2em;
-`;
+`
 
 const HSplit = styled.div`
   display: flex;
@@ -131,7 +132,7 @@ const HSplit = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.5em;
-`;
+`
 
 const Buttons = styled.div`
   display: flex;
@@ -143,11 +144,11 @@ const Buttons = styled.div`
   row-gap: 0px;
   font-size: x-large;
   padding: 0.5em;
-`;
+`
 
 const WrongNetwork = styled.div`
   color: darkred;
   font-size: small;
-`;
+`
 
 export default Header;

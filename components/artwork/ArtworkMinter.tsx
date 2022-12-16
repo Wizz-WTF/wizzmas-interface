@@ -8,24 +8,26 @@ import { MediumTitle, SmallTitle } from "../generic/StyledComponents";
 
 const ArtworkMinter: NextPage = () => {
   const { address } = useAccount();
+  
   const {
     data: canClaim,
     isError: isCanClaimError,
     isLoading: isCanClaimLoading,
   } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? "",
+    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
     contractInterface: WizzmasArtworkMinterArtifact.abi,
-    functionName: "canClaim",
+    functionName: 'canClaim',
     args: [address],
-  });
+  })
 
   const {
     data: mintEnabled,
     isError: isMintEnabledError,
     isLoading: isMintEnabledLoading,
   } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? "",
+    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
     contractInterface: WizzmasArtworkMinterArtifact.abi,
+
     functionName: "mintEnabled",
   });
 
@@ -40,13 +42,14 @@ const ArtworkMinter: NextPage = () => {
         {isMintEnabledLoading ||
           (isCanClaimLoading && <SmallTitle>Loading...</SmallTitle>)}
         <CoverViewer />
-        {!address && <SmallTitle>Connect wallet to mint!</SmallTitle>}
-        {canClaim && <ArtworkClaim artworkType={0} />}
-        {!canClaim && <ArtworkMint artworkType={0} />}
+        {!mintEnabled && <SmallTitle>Mint is Over!</SmallTitle>}
+        {!address && mintEnabled && <SmallTitle>Connect wallet to mint!</SmallTitle>}
+        {canClaim && address && mintEnabled && <ArtworkClaim artworkType={0} />}
+        {!canClaim && address && mintEnabled && <ArtworkMint artworkType={0} />}
       </>
-    );
+    )
   } else {
-    return <p>Mint is closed!</p>;
+    return <p>Mint is closed!</p>
   }
 };
 

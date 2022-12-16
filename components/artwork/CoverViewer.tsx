@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const CoverViewer = () => {
   return (
@@ -7,8 +7,8 @@ const CoverViewer = () => {
         <Image src={`/api/artwork/gif/0`} />
       </Item>
     </div>
-  );
-};
+  )
+}
 
 const Item = styled.div`
   padding: 2em;
@@ -28,4 +28,4 @@ const Image = styled.img`
   // backface-visibility: hidden;
 `;
 
-export default CoverViewer;
+export default CoverViewer

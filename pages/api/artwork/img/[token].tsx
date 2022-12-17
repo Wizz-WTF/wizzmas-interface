@@ -13,8 +13,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(404).end()
   }
   const imagePath = path.resolve('./data/artwork', `img/${token}.png`)
-  const imageBuffer = fs.readFileSync(imagePath)
-  return res.end(imageBuffer)
+  const imageBuffer = fs.readFileSync(imagePath);
+  if (!imageBuffer) {
+    return res.status(404).end();
+  }
+  res.setHeader("Content-Type", "image/png");
+  res.setHeader(
+    "Cache-Control",
+    `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
+  );
+return res.end(imageBuffer)
 }
 
 export default handler

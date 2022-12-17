@@ -82,6 +82,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         </body>
         </html>
     `
+    res.setHeader("Content-Type", "text/html");
+    res.setHeader(
+      "Cache-Control",
+      `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
+    );  
     return res.end(content)
   } catch {
     return res.status(404).end()

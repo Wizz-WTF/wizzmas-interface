@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import fs from 'fs'
 import path from 'path'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { getArtworkMinterContract } from '../../../../contracts/WizzmasArtworkMinterContract'
 import { getProvider } from '../../../../constants/Provider'
 

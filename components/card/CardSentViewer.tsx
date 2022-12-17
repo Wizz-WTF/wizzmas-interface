@@ -20,7 +20,6 @@ const CardSentViewer = () => {
   })
 
   const renderItem = (item: any) => {
-    console.log(process.env.VERCEL_URL)
     const dynamicUrl = senderIds ? `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/card/dynamic/${senderIds[item]}` : "";
     const [card, loadCard] = useState<any | undefined>(undefined)
 

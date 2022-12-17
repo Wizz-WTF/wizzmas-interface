@@ -5,6 +5,7 @@ import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
 import { range } from '../../lib/ArrayUtil'
 import FlipViewer from '../generic/FlipViewer'
 import { SmallTitle } from '../generic/StyledComponents'
+import { getBaseUrl } from '../../constants'
 
 const CardReceivedViewer = () => {
   const { address } = useAccount()
@@ -21,7 +22,7 @@ const CardReceivedViewer = () => {
 
   const renderItem = (item: any) => {
     // todo: I think something here is causing render errors when switching wallets
-    const dynamicUrl = recipientIds ? `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/card/dynamic/${recipientIds[item]}` : "";
+    const dynamicUrl = recipientIds ? `${getBaseUrl() ?? 'http://localhost:3000'}/api/card/dynamic/${recipientIds[item]}` : "";
     const [card, loadCard] = useState<any | undefined>(undefined)
 
     useEffect(() => {

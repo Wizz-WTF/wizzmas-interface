@@ -5,6 +5,7 @@ import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
 import { range } from '../../lib/ArrayUtil'
 import FlipViewer from '../generic/FlipViewer'
 import { SmallTitle } from '../generic/StyledComponents'
+import { getBaseUrl } from '../../constants'
 
 const CardSentViewer = () => {
   const { address } = useAccount()
@@ -20,7 +21,7 @@ const CardSentViewer = () => {
   })
 
   const renderItem = (item: any) => {
-    const dynamicUrl = senderIds ? `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/card/dynamic/${senderIds[item]}` : "";
+    const dynamicUrl = senderIds ? `${getBaseUrl() ?? 'http://localhost:3000'}/api/card/dynamic/${senderIds[item]}` : "";
     const [card, loadCard] = useState<any | undefined>(undefined)
 
     useEffect(() => {

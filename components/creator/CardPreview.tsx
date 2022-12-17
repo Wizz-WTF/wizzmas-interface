@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import styled from 'styled-components'
 import { SelectedToken } from './TokenPicker'
+import { getBaseUrl } from '../../constants'
 
 export type CardPreviewProps = {
   templateType: number | undefined
@@ -10,7 +11,7 @@ export type CardPreviewProps = {
 
 const CardPreview: NextPage<CardPreviewProps> = ({ templateType, token, message }: CardPreviewProps) => {
   function buildURL() {
-    var url = process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'
+    var url = getBaseUrl() ?? 'http://localhost:3000'
     url += '/api/card/img/generate?'
     url += templateType != undefined ? `&template=${templateType}` : ''
     url += message != undefined ? `&message=${message}` : ''

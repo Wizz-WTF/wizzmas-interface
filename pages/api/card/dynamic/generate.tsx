@@ -1,5 +1,6 @@
 import { ethers } from 'ethers'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getBaseUrl } from '../../../../constants'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const artwork = parseInt(req.query.artwork as string, 10)
@@ -9,10 +10,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const message = req.query.message as string
 
   try {
-    const frontUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/img/${artwork}`
+    const frontUrl = `${getBaseUrl() ?? 'http://localhost:3000'}/api/artwork/img/${artwork}`
 
     const backUrl = `${
-      process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'
+      getBaseUrl() ?? 'http://localhost:3000'
     }/api/card/img/generate?token=${token}&contract=${tokenContract}&message=${message}&template=${template}`
 
     const content = `

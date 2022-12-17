@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getProvider } from '../../../../constants/Provider'
 import { getCardsContract } from '../../../../contracts/WizzmasCardContract'
+import { getBaseUrl } from '../../../../constants'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = parseInt(req.query.token as string, 10)
@@ -12,9 +13,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const contract = getCardsContract({ provider: getProvider() })
     const mintedCard = await contract.getCard(token)
 
-    const frontUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/gif/${mintedCard.artwork}`
+    const frontUrl = `${getBaseUrl() ?? 'http://localhost:3000'}/api/artwork/gif/${mintedCard.artwork}`
 
-    const backUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/card/img/${mintedCard.card}`
+    const backUrl = `${getBaseUrl() ?? 'http://localhost:3000'}/api/card/img/${mintedCard.card}`
 
     const content = `
         <!DOCTYPE html>

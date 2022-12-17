@@ -41,7 +41,7 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
         <>
           <h3>Select Template: </h3>
           <TemplateStack>
-            <Picker items={range(0, numTemplates)} renderItem={renderItem} onSelected={onTemplateSelected} />
+            <Picker items={range(0, Number(numTemplates))} renderItem={renderItem} onSelected={onTemplateSelected} />
           </TemplateStack>
         </>
       )}

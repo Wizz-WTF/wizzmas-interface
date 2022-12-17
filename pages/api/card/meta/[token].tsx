@@ -27,9 +27,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const meta = {
       description: 'Wizzmas Cards',
       external_url: 'https://cards.wizz.wtf',
-      name: `Wizzmas Card #${mintedCard.token}`,
-      animation_url: `https://cards.wizz.wtf/api/card/dynamic/${mintedCard.token}`,
-      image: `https://cards.wizz.wtf/api/card/img/${mintedCard.token}`,
+      name: `Wizzmas Card #${mintedCard.card}`,
+      animation_url: `https://cards.wizz.wtf/api/card/dynamic/${mintedCard.card}`,
+      image: `https://cards.wizz.wtf/api/card/img/${mintedCard.card}`,
       background_color: '000000',
       attributes: [
         {

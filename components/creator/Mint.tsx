@@ -54,6 +54,16 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
 
   let canMint = balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : 0
 
+  console.log(config)
+  console.log(data);
+  //console.log(canMint)
+  //console.log(token.tokenContract);
+  //console.log(token.tokenId);
+  //console.log(artworkType);
+  //console.log(templateType);
+  //console.log(message);
+  //console.log(recipient);
+
   return (
     <>
       {canMint > 0 && (
@@ -61,7 +71,7 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
           {isLoading ? 'Minting...' : 'Mint now'}
         </PrimaryButton>
       )}
-      {canMint == 0 && (
+      {!canMint || canMint == 0 && (
         <PrimaryButton disabled={true}>
           Need Cover To Mint
         </PrimaryButton>

@@ -1,13 +1,5 @@
 import { ethers } from 'ethers'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getCardsContract } from '../../../../contracts/WizzmasCardContract'
-
-function getProvider() {
-  return new ethers.providers.StaticJsonRpcProvider('http://127.0.0.1:8545', {
-    name: 'Anvil',
-    chainId: 31337,
-  })
-}
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const artwork = parseInt(req.query.artwork as string, 10)

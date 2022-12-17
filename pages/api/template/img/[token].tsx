@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = parseInt(req.query.token as string, 10)
   const provider = getProvider()
   const contract = getCardsContract({ provider: provider })
-  const available = (await contract.numTemplates()).gt(token)
+  const available = (await contract.numTemplates() > token)
   if (!available) {
     return res.status(404).end()
   }

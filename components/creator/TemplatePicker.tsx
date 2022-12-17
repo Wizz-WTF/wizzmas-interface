@@ -30,7 +30,7 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
   const renderItem = (template: number) => {
     return (
       <Item>
-        <Image src={`/api/template/img/${template}.png`} />
+        <Image src={`${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/template/img/${template}.png`} />
       </Item>
     )
   }
@@ -41,7 +41,7 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
         <>
           <h3>Select Template: </h3>
           <TemplateStack>
-            <Picker items={range(0, numTemplates.toNumber())} renderItem={renderItem} onSelected={onTemplateSelected} />
+            <Picker items={range(0, numTemplates)} renderItem={renderItem} onSelected={onTemplateSelected} />
           </TemplateStack>
         </>
       )}

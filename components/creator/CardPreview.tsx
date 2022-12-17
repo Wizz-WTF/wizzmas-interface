@@ -10,11 +10,13 @@ export type CardPreviewProps = {
 
 const CardPreview: NextPage<CardPreviewProps> = ({ templateType, token, message }: CardPreviewProps) => {
   function buildURL() {
-    var url = '/api/card/img/generate?'
+    var url = process.env.VERCEL_URL ?? 'http://localhost:3000'
+    url += '/api/card/img/generate?'
     url += templateType != undefined ? `&template=${templateType}` : ''
     url += message != undefined ? `&message=${message}` : ''
     url += token ? `&contract=${token.tokenContract}` : ''
     url += token ? `&token=${token.tokenId}` : ''
+    console.log(url)
     return url
   }
 

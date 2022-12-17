@@ -3,6 +3,10 @@
       {
         "trait_type": "Back",
         "value": "Perchance to Dream"
-      }
+      },
+      {
+        "trait_type": "Back Artist",
+        "value": "Shadow"
+      }  
     ]
-  }
+}

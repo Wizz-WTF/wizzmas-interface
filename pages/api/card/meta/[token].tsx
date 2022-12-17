@@ -1,4 +1,5 @@
-import { ethers } from 'ethers'
+import fs from 'fs'
+import path from 'path'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getBaseUrl } from '../../../../constants'
 import { getProvider } from '../../../../constants/Provider'
@@ -15,10 +16,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const contract = getCardsContract({ provider: getProvider() })
     const mintedCard = await contract.getCard(token)
 
-    const artworkMeta = await fetch(
-      `${getBaseUrl() ?? 'http://localhost:3000'}/api/artwork/meta/${mintedCard.artwork}`
-    ).then((res) => res?.json())
-
+    const artworkMetaPath = path.resolve('./data/artwork', `meta/${mintedCard.artwork}.json`)
+    const artworkMeta = JSON.parse(fs.readFileSync(artworkMetaPath, 'utf-8'))
+    const templateMetaPath = path.resolve('./data/template', `meta/${mintedCard.template}.json`)
+    const templateMeta = JSON.parse(fs.readFileSync(templateMetaPath, 'utf-8'))
+  
     const contractName = await getERC721Contract({
       address: mintedCard.tokenContract,
       provider: getProvider(),
@@ -41,6 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           value: contractName,
         },
         ...artworkMeta.attributes,
+        ...templateMeta.attributes,
         {
           trait_type: 'Message',
           value: mintedCard.message,

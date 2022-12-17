@@ -1,8 +1,12 @@
 {
-    "attributes": [
-      {
-        "trait_type": "Back",
-        "value": "Flamethrower Snowblower"
-      }
-    ]
-  }
+  "attributes": [
+    {
+      "trait_type": "Back",
+      "value": "Flamethrower Snowblower"
+    },
+    {
+      "trait_type": "Back Artist",
+      "value": "Shadow"
+    }
+  ]
+}

@@ -1,14 +1,9 @@
 import { ethers } from 'ethers'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getBaseUrl } from '../../../../constants'
+import { getProvider } from '../../../../constants/Provider'
 import { getERC721Contract } from '../../../../contracts/ERC721Contract'
 import { getCardsContract } from '../../../../contracts/WizzmasCardContract'
-
-function getProvider() {
-  return new ethers.providers.StaticJsonRpcProvider('http://127.0.0.1:8545', {
-    name: 'Anvil',
-    chainId: 31337,
-  })
-}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const token = parseInt(req.query.token as string, 10)
@@ -21,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const mintedCard = await contract.getCard(token)
 
     const artworkMeta = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/meta/${mintedCard.artwork}`
+      `${getBaseUrl() ?? 'http://localhost:3000'}/api/artwork/meta/${mintedCard.artwork}`
     ).then((res) => res?.json())
 
     const contractName = await getERC721Contract({
@@ -55,6 +50,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Cache-Control', `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`)
     return res.end(JSON.stringify(meta))
   } catch (error) {
+    console.error(error);
     return res.status(404).end()
   }
 }

@@ -27,7 +27,6 @@ const ArtworkMinter: NextPage = () => {
   } = useContractRead({
     addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
     contractInterface: WizzmasArtworkMinterArtifact.abi,
-
     functionName: "mintEnabled",
   });
 

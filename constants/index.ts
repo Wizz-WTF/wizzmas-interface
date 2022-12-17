@@ -11,6 +11,9 @@ export const FRWC_WIZARDS_ADDRESS: string = SUPPORTED_TOKENS[0]
 export const FRWC_SOULS_ADDRESS: string = SUPPORTED_TOKENS[1]
 export const FRWC_WARRIORS_ADDRESS: string = SUPPORTED_TOKENS[2]
 
-export function getBaseUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL
+export function getBaseUrl(): string | undefined {
+  const url = process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL;
+  if (url) {
+    return "https://" + url;
+  }
 };

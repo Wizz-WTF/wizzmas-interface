@@ -16,7 +16,6 @@ const CardPreview: NextPage<CardPreviewProps> = ({ templateType, token, message 
     url += message != undefined ? `&message=${message}` : ''
     url += token ? `&contract=${token.tokenContract}` : ''
     url += token ? `&token=${token.tokenId}` : ''
-    console.log(url)
     return url
   }
 

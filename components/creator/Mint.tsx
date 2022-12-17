@@ -1,7 +1,8 @@
-import { ethers } from 'ethers'
+import { ethers, BigNumber } from 'ethers'
 import { NextPage } from 'next'
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction, useContractRead, useAccount } from 'wagmi'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
+import WizzmasArtworkArtifact from "../../contracts/artifacts/WizzmasArtwork.json";
 import { PrimaryButton, SmallTitle } from '../generic/StyledComponents'
 import DisplayError from '../generic/DisplayError'
 import { SelectedToken } from './TokenPicker'
@@ -15,6 +16,19 @@ export type MintProps = {
 }
 
 const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, recipient }: MintProps) => {
+  const { address } = useAccount();
+
+  const {
+    data: balanceOfArtwork,
+    isError: isBalanceOfArtworkError,
+    isLoading: isBalanceOfArtworkLoading,
+  } = useContractRead({
+    addressOrName: process.env.NEXT_PUBLIC_ARTWORK_CONTRACT_ADDRESS ?? '',
+    contractInterface: WizzmasArtworkArtifact.abi,
+    functionName: "balanceOf",
+    args: [address, artworkType]
+  });
+
   const { config, error: prepareError } = usePrepareContractWrite({
     addressOrName: process.env.NEXT_PUBLIC_CARD_CONTRACT_ADDRESS ?? '',
     contractInterface: WizzmasCardArtifact.abi,
@@ -38,11 +52,20 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     hash: data?.hash,
   })
 
+  let canMint = balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : 0
+
   return (
     <>
-      <PrimaryButton disabled={!write || isLoading} onClick={() => write!()}>
-        {isLoading ? 'Minting...' : 'Mint now'}
-      </PrimaryButton>
+      {canMint > 0 && (
+        <PrimaryButton disabled={!write || isLoading} onClick={() => write!()}>
+          {isLoading ? 'Minting...' : 'Mint now'}
+        </PrimaryButton>
+      )}
+      {canMint == 0 && (
+        <PrimaryButton disabled={true}>
+          Need Cover To Mint
+        </PrimaryButton>
+      )}
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
       {isSuccess && <SmallTitle>Congrats, you sent a WizzmasCard to {recipient}!</SmallTitle>}
     </>

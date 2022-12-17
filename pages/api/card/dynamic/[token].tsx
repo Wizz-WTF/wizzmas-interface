@@ -13,9 +13,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const contract = getCardsContract({ provider: getProvider() })
     const mintedCard = await contract.getCard(token)
 
-    const frontUrl = `${getBaseUrl() ?? 'http://localhost:3000'}/api/artwork/gif/${mintedCard.artwork}`
+    const frontUrl = `/api/artwork/gif/${mintedCard.artwork}`
 
-    const backUrl = `${getBaseUrl() ?? 'http://localhost:3000'}/api/card/img/${mintedCard.card}`
+    const backUrl = `/api/card/img/${mintedCard.card}`
 
     const content = `
         <!DOCTYPE html>
@@ -83,10 +83,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         </html>
     `
     res.setHeader("Content-Type", "text/html");
-    res.setHeader(
-      "Cache-Control",
-      `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
-    );  
+    // res.setHeader(
+    //   "Cache-Control",
+    //   `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
+    // );
     return res.end(content)
   } catch {
     return res.status(404).end()

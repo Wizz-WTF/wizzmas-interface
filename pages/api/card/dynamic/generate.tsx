@@ -9,10 +9,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const message = req.query.message as string
 
   try {
-    const frontUrl = `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/img/${artwork}`
+    const frontUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/img/${artwork}`
 
     const backUrl = `${
-      process.env.VERCEL_URL ?? 'http://localhost:3000'
+      process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'
     }/api/card/img/generate?token=${token}&contract=${tokenContract}&message=${message}&template=${template}`
 
     const content = `

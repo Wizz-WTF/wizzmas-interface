@@ -12,9 +12,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const contract = getCardsContract({ provider: getProvider() })
     const mintedCard = await contract.getCard(token)
 
-    const frontUrl = `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/gif/${mintedCard.artwork}`
+    const frontUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/gif/${mintedCard.artwork}`
 
-    const backUrl = `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/card/img/${mintedCard.card}`
+    const backUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/card/img/${mintedCard.card}`
 
     const content = `
         <!DOCTYPE html>

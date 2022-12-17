@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const mintedCard = await contract.getCard(token)
 
     const artworkMeta = await fetch(
-      `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/meta/${mintedCard.artwork}`
+      `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/api/artwork/meta/${mintedCard.artwork}`
     ).then((res) => res?.json())
 
     const contractName = await getERC721Contract({

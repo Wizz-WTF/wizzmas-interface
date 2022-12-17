@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import fs from 'fs'
 import path from 'path'
 import { getArtworkMinterContract } from '../../../../contracts/WizzmasArtworkMinterContract'
-import { getProvider } from '../../../../contracts/Provider'
+import { getProvider } from '../../../../constants/Provider'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = parseInt(req.query.token as string, 10)

@@ -1,5 +1,7 @@
 const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-const baseURL = `https://eth-mainnet.g.alchemy.com/nft/v2/${apiKey}/getNFTs/`
+const baseURL = process.env.NEXT_PUBLIC_ALCHEMY_NETWORK == 'mainnet' ? 
+  `https://eth-mainnet.g.alchemy.com/nft/v2/${apiKey}/getNFTs/`
+  : `https://eth-goerli.g.alchemy.com/nft/v2/${apiKey}/getNFTs/`
 
 export async function fetchNFTs(address: string, contracts: string[], pageKey: string = ''): Promise<any> {
   return fetch(`${baseURL}?owner=${address}&contractAddresses[]=${[...contracts]}&pageKey=${pageKey}`, {

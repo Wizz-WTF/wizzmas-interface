@@ -3,7 +3,7 @@ import { getCardsContract } from '../../../../contracts/WizzmasCardContract'
 import { card } from '../../../../lib/ImageUtil'
 import { getTemplateImagePath } from '../../../../lib/TemplateUtil'
 import { fetchRunesWalkCycleFront } from '../../../../lib/TokenArtwork'
-import { getProvider } from '../../../../contracts/Provider'
+import { getProvider } from '../../../../constants/Provider'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.token == undefined) {

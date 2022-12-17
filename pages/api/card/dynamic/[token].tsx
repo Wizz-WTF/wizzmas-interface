@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getProvider } from '../../../../contracts/Provider'
+import { getProvider } from '../../../../constants/Provider'
 import { getCardsContract } from '../../../../contracts/WizzmasCardContract'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getProvider } from '../../../../contracts/Provider'
+import { getProvider } from '../../../../constants/Provider'
 import { card } from '../../../../lib/ImageUtil'
 import { getTemplateImagePath } from '../../../../lib/TemplateUtil'
 import { fetchRunesWalkCycleFront } from '../../../../lib/TokenArtwork'

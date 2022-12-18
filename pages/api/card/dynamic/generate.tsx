@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const message = req.query.message as string
 
   try {
-    const frontUrl = `${getBaseUrl() ?? 'http://localhost:3000'}/api/artwork/img/${artwork}`
+    const frontUrl = `${getBaseUrl() ?? 'http://localhost:3000'}/api/artwork/gif/${artwork}`
     const backUrl = `${
       getBaseUrl() ?? 'http://localhost:3000'
     }/api/card/img/generate?token=${token}&contract=${tokenContract}&message=${message}&template=${template}`

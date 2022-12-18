@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getProvider } from '../../../../constants/Provider'
 import { getCardsContract } from '../../../../contracts/WizzmasCardContract'
-import { getBaseUrl } from '../../../../constants'
+import { generateDynamicCard } from '../../../../lib/DynamicCard'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = parseInt(req.query.token as string, 10)
@@ -12,81 +12,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const contract = getCardsContract({ provider: getProvider() })
     const mintedCard = await contract.getCard(token)
-
     const frontUrl = `/api/artwork/gif/${mintedCard.artwork}`
-
     const backUrl = `/api/card/img/${mintedCard.card}`
-
-    const content = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <style>
-        /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-        .flip-card {
-            background-color: transparent;
-            width: 300px;
-            height: 200px;
-            perspective: 1000px; /* Remove this if you don't want the 3D effect */
-        }
-        
-        /* This container is needed to position the front and back side */
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-        
-        /* Do an horizontal flip when you move the mouse over the flip box container */
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        
-        /* Position the front and back side */
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
-            backface-visibility: hidden;
-        }
-        
-        /* Style the front side (fallback if image is missing) */
-        .flip-card-front {
-            background-color: #bbb;
-            color: black;
-        }
-        
-        /* Style the back side */
-        .flip-card-back {
-            background-color: dodgerblue;
-            color: white;
-            transform: rotateY(180deg);
-        }
-        </style>
-        <head>
-        <body>
-        <div class="flip-card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-            <img src="${frontUrl}" alt="Front" style="width:300px;height:300px;">
-            </div>
-            <div class="flip-card-back">
-            <img src="${backUrl}" alt="Back" style="width:300px;height:300px;">
-            </div>
-        </div>
-        </div>
-        </body>
-        </html>
-    `
+    const content = generateDynamicCard(frontUrl, backUrl);
     res.setHeader("Content-Type", "text/html");
-    // res.setHeader(
-    //   "Cache-Control",
-    //   `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
-    // );
+    res.setHeader(
+      "Cache-Control",
+      `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
+    );
     return res.end(content)
   } catch {
     return res.status(404).end()

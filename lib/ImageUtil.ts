@@ -29,7 +29,7 @@ export type CardParams = {
   width?: number
   height?: number
 }
-export async function card({ templatePath, senderImageUrl, message, width = 750, height = 590 }: CardParams) {
+export async function card({ templatePath, senderImageUrl, message, width = 1500, height = 1118 }: CardParams) {
   try {
     const overlays: any[] = []
 

@@ -36,7 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       attributes: [
         {
           trait_type: 'Token',
-          value: mintedCard.token,
+          value: `${mintedCard.token}`,
         },
         {
           trait_type: 'Token Type',

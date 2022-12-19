@@ -1,19 +1,15 @@
 import styled from 'styled-components'
 import { range } from '../../lib/ArrayUtil'
 import FlipViewer from '../generic/FlipViewer'
-import { getBaseUrl } from '../../constants'
+import { DynamicCardViewer } from './DynamicCardViewer'
 
 type CardsViewerProps = {
   cards: number[]
 }
 const CardsViewer = ({ cards }: CardsViewerProps) => {
   const renderItem = (item: number) => {
-    const dynamicUrl = cards ? `${getBaseUrl() ?? 'http://localhost:3000'}/api/card/dynamic/${cards[item]}` : ''
-    const imageUrl = cards ? `${getBaseUrl() ?? 'http://localhost:3000'}/api/card/img/${cards[item]}` : ''
     return (
-      <a href={dynamicUrl}>
-        <Card src={imageUrl} />
-      </a>
+        <a href={`/api/card/dynamic/${item}`}><Item><DynamicCardViewer card={item} /></Item></a>
     )
   }
 
@@ -37,6 +33,8 @@ const CardsViewer = ({ cards }: CardsViewerProps) => {
   }
 }
 
+const Item = styled.div`width: 300px; height: 300px;`
+
 const CardGrid = styled.div`
   padding: 1rem;
   display: flex;
@@ -57,27 +55,5 @@ const Title = styled.div`
   width: 100%;
 `
 
-const Item = styled.div`
-  width: 300px;
-  height: 300px;
-`
-
-const Wrapper = styled.div`
-  padding: 0.2em;
-`
-
-const Card = styled.img`
-  width: 300px;
-  height: 236px;
-  border: 0;
-  overflow: hidden;
-  cursor: pointer;
-  border: dashed;
-  border-color: #222;
-  :hover {
-    border: dashed;
-    border-color: yellow;
-  }
-`
 
 export default CardsViewer

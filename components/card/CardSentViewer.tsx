@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { useAccount, useContractRead } from 'wagmi'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
 import { SmallTitle } from '../generic/StyledComponents'

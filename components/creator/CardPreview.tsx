@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import styled from 'styled-components'
 import { SelectedToken } from './TokenPicker'
 import { getBaseUrl } from '../../constants'
+import { MediumTitle, VStack } from '../generic/StyledComponents'
 
 export type CardPreviewProps = {
   templateType: number | undefined
@@ -20,12 +21,17 @@ const CardPreview: NextPage<CardPreviewProps> = ({ templateType, token, message 
     return url
   }
 
-  return <CardImage src={buildURL()} />
+  return (
+    <VStack>
+      <MediumTitle>Card preview:</MediumTitle>
+      <CardImage src={buildURL()} />
+    </VStack>
+  )
 }
 
 const CardImage = styled.img`
-  width: 760px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   background: #333;
 `
 

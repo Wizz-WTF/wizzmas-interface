@@ -5,12 +5,13 @@ import DisplayError from '../generic/DisplayError'
 import { Button, MediumTitle, Segment, TextInput, VStack } from '../generic/StyledComponents'
 
 type RecipientInputProps = {
+  userRecipient: string | undefined
   onRecipientValid: (recipient: string | undefined) => void
 }
-const RecipientInput = ({ onRecipientValid }: RecipientInputProps) => {
+const RecipientInput = ({ userRecipient, onRecipientValid }: RecipientInputProps) => {
   const [address, setAddress] = useState('')
   const [validAddress, setValidAddress] = useState(false)
-  const [addedAddress, setAddedAddress] = useState<string | undefined>(undefined)
+  const [addedAddress, setAddedAddress] = useState<string | undefined>(userRecipient)
   const [inputError, setInputError] = useState<Error | null>(null)
 
   function validate(e: any) {
@@ -32,31 +33,27 @@ const RecipientInput = ({ onRecipientValid }: RecipientInputProps) => {
   }
 
   return (
-    <>
+    <VStack>
       <MediumTitle>Enter recipient:</MediumTitle>
-      <VStack>
-        <>
-          <Segment>
-            {addedAddress != undefined && <AddedAddress>{addedAddress}</AddedAddress>}
-            {addedAddress == undefined && (
-              <TextInput
-                required
-                value={address}
-                onChange={validate}
-                minLength={42}
-                maxLength={42}
-                placeholder="Enter address..."
-              />
-            )}
-            <Button onClick={addedAddress == undefined ? addAddress : clear} disabled={!validAddress}>
-              {addedAddress != undefined && <>Remove Recipient</>}
-              {addedAddress == undefined && <>Add Recipient</>}
-            </Button>
-          </Segment>
-          <DisplayError error={inputError} />
-        </>
-      </VStack>
-    </>
+      <Segment>
+        {addedAddress != undefined && <AddedAddress>{addedAddress}</AddedAddress>}
+        {addedAddress == undefined && (
+          <TextInput
+            required
+            value={address}
+            onChange={validate}
+            minLength={42}
+            maxLength={42}
+            placeholder="Enter address..."
+          />
+        )}
+        <Button onClick={addedAddress == undefined ? addAddress : clear} disabled={!validAddress && !addedAddress}>
+          {addedAddress != undefined && <>Remove Recipient</>}
+          {addedAddress == undefined && <>Add Recipient</>}
+        </Button>
+      </Segment>
+      <DisplayError error={inputError} />
+    </VStack>
   )
 }
 
@@ -66,6 +63,8 @@ const AddedAddress = styled.div`
   color: yellow;
   border: dashed;
   border-color: yellow;
-`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;`
 
 export default RecipientInput

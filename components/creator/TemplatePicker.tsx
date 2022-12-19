@@ -3,6 +3,7 @@ import { useContractRead } from 'wagmi'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
 import { range } from '../../lib/ArrayUtil'
 import Picker from '../generic/Picker'
+import { MediumTitle, VStack } from '../generic/StyledComponents'
 
 type TemplatePickerProps = {
   onTemplateSelected: (template: number) => void
@@ -36,16 +37,16 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
   }
 
   return (
-    <div>
+    <>
       {numTemplates && (
-        <>
-          <h3>Select Template: </h3>
+        <VStack>
+          <MediumTitle>Select template:</MediumTitle>
           <TemplateStack>
             <Picker items={range(0, Number(numTemplates))} renderItem={renderItem} onSelected={onTemplateSelected} />
           </TemplateStack>
-        </>
+        </VStack>
       )}
-    </div>
+    </>
   )
 }
 
@@ -60,7 +61,7 @@ const TemplateStack = styled.div`
 
 const Item = styled.div`
   width: 250px;
-  height: 240px;
+  height: 196px;
 `
 
 const Image = styled.img`

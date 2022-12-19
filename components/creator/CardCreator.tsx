@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { PrimaryButton, VStack, HStack, SmallTitle } from '../generic/StyledComponents'
+import { PrimaryButton, VStack, HStack, SmallTitle, Segment, Button } from '../generic/StyledComponents'
 import CardPreview from './CardPreview'
 import TemplatePicker from './TemplatePicker'
 import MessagePicker from './MessagePicker'
@@ -16,40 +16,51 @@ const CardCreator = () => {
   const [selectedMessage, setSelectedMessage] = useState<string | undefined>(undefined)
   const [recipient, setRecipient] = useState<string | undefined>(undefined)
 
+  function nextEnabled(): boolean {
+    if (inputSelection == 0) {
+      return selectedTemplate != undefined
+    }
+    if (inputSelection == 1) {
+      return selectedToken != undefined
+    }
+    if (inputSelection == 2) {
+      return selectedMessage != undefined
+    }
+    if (inputSelection == 3) {
+      return recipient != undefined
+    }
+    return false
+  }
+
   return (
     <>
       <Content>
-        <Content>
-          <VStack>
-            {inputSelection == 0 && <TemplatePicker onTemplateSelected={setSelectedTemplate} />}
-            {inputSelection == 1 && <TokenPicker onTokenSelected={setSelectedToken} />}
-            {inputSelection == 2 && <MessagePicker onMessageValid={setSelectedMessage} />}
-            {inputSelection == 3 && <SmallTitle>Ready to Mint!</SmallTitle>}
-            <HStack>
-              <PrimaryButton disabled={inputSelection == 0} onClick={() => setInputSelection(inputSelection - 1)}>
-                Previous
-              </PrimaryButton>
-              <PrimaryButton disabled={inputSelection == 3} onClick={() => setInputSelection(inputSelection + 1)}>
-                Next
-              </PrimaryButton>
-            </HStack>
-          </VStack>
-        </Content>
-        <Content>
+        <VStack>
+          <HStack>
+            <Button disabled={inputSelection == 0} onClick={() => setInputSelection(inputSelection - 1)}>
+              Previous
+            </Button>
+            <Button disabled={!nextEnabled()} onClick={() => setInputSelection(inputSelection + 1)}>
+              Next
+            </Button>
+          </HStack>
+          {inputSelection == 0 && <TemplatePicker onTemplateSelected={setSelectedTemplate} />}
+          {inputSelection == 1 && <TokenPicker onTokenSelected={setSelectedToken} />}
+          {inputSelection == 2 && <MessagePicker userMessage={selectedMessage} onMessageValid={setSelectedMessage} />}
+          {inputSelection == 3 && <RecipientInput userRecipient={recipient} onRecipientValid={setRecipient} />}
+          {inputSelection == 4 && (
+            <>
+              <Mint
+                artworkType={selectedCover}
+                templateType={selectedTemplate}
+                message={selectedMessage}
+                token={selectedToken}
+                recipient={recipient}
+              />
+            </>
+          )}
           <CardPreview templateType={selectedTemplate} token={selectedToken} message={selectedMessage} />
-        </Content>
-        <Content>
-          <VStack>
-            <RecipientInput onRecipientValid={setRecipient} />
-            <Mint
-              artworkType={selectedCover}
-              templateType={selectedTemplate}
-              message={selectedMessage}
-              token={selectedToken}
-              recipient={recipient}
-            />
-          </VStack>
-        </Content>
+        </VStack>
       </Content>
     </>
   )

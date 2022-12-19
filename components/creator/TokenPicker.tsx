@@ -6,6 +6,7 @@ import { FRWC_SOULS_ADDRESS, FRWC_WARRIORS_ADDRESS, FRWC_WIZARDS_ADDRESS } from 
 import { getNFTs } from '../../lib/AlchemyUtil'
 import Picker from '../generic/Picker'
 import { fetchRunesWalkCycleFront } from '../../lib/TokenArtwork'
+import { MediumTitle, VStack } from '../generic/StyledComponents'
 
 export interface SelectedToken {
   tokenContract: string
@@ -40,12 +41,12 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
     let imgUrl = fetchRunesWalkCycleFront(item.contract.address, id)
     return (
       <Item>
-        <TokenImageWrapper>
+        {/* <TokenImageWrapper> */}
           <TokenImage src={imgUrl} />
-        </TokenImageWrapper>
-        <TokenTextWrapper>
+        {/* </TokenImageWrapper> */}
+        {/* <TokenTextWrapper>
           <TokenText>{item.metadata.name}</TokenText>
-        </TokenTextWrapper>
+        </TokenTextWrapper> */}
       </Item>
     )
   }
@@ -55,33 +56,29 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
   }
 
   return (
-    <TokenBox>
-      <HStackScroll>
-        {ownedTokens && (
-          <>
-            <Picker
-              items={ownedTokens}
-              onSelected={(item) =>
-                onTokenSelected({
-                  tokenContract: item.contract.address,
-                  tokenId: BigNumber.from(item.id.tokenId).toNumber(),
-                })
-              }
-              renderItem={renderItem}
-            />
-            {ownedTokens.length == 0 && <>You have no tokens.</>}
-          </>
-        )}
-      </HStackScroll>
-    </TokenBox>
+    <VStack>
+      <MediumTitle>Select NFT:</MediumTitle>
+        <HStackScroll>
+          {ownedTokens && (
+            <>
+              <Picker
+                items={ownedTokens}
+                onSelected={(item) =>
+                  onTokenSelected({
+                    tokenContract: item.contract.address,
+                    tokenId: BigNumber.from(item.id.tokenId).toNumber(),
+                  })
+                }
+                renderItem={renderItem}
+              />
+              {ownedTokens.length == 0 && <>You have no tokens.</>}
+            </>
+          )}
+        </HStackScroll>
+    </VStack>
   )
 }
 
-export const TokenBox = styled.div`
-  width: 760px;
-  height: 600px;
-  overflow: scroll;
-`
 
 export const HStackScroll = styled.div`
   display: flex;
@@ -93,8 +90,8 @@ export const HStackScroll = styled.div`
 `
 
 const Item = styled.div`
-  width: 150px;
-  height: 220px;
+  width: 100px;
+  height: 100px;
 `
 
 const TokenTextWrapper = styled.div`

@@ -11,8 +11,9 @@ const Picker = ({ items, renderItem, onSelected }: PickerProps) => {
 
   return (
     <>
-      {items.map((item) => (
+      {items.map((item, i) => (
         <div
+          key={i}
           onClick={() => {
             setSelected(item)
             onSelected(item)

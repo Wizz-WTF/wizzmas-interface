@@ -52,11 +52,15 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     hash: data?.hash,
   })
 
-  let canMint = balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : 0
+  let numArtworks = balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : 0
+
+  if (isBalanceOfArtworkLoading) {
+    return <SmallTitle>Checking your wallet for artworks...</SmallTitle>
+  }
 
   return (
     <>
-      <p>{canMint}</p>
+      {numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
       <PrimaryButton disabled={!write || isLoading} onClick={() => write!()}>
         {isLoading ? 'Minting...' : 'Mint now'}
       </PrimaryButton>

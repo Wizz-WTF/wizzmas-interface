@@ -1,10 +1,12 @@
 import styled from 'styled-components'
+import { DynamicCardPreviewer } from '../card/DynamicCardViewer';
 
 const CoverViewer = () => {
   return (
     <div>
       <Item>
         <Image src={`/api/artwork/gif/0`} />
+        
       </Item>
     </div>
   )
@@ -14,6 +16,8 @@ const Item = styled.div`
   padding: 2em;
   transform-style: preserve-3d;
   perspective: 1000px;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const Image = styled.img`

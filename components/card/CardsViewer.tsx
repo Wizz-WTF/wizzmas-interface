@@ -9,7 +9,9 @@ type CardsViewerProps = {
 const CardsViewer = ({ cards }: CardsViewerProps) => {
   const renderItem = (item: number) => {
     return (
-        <a href={`/api/card/dynamic/${item}`}><Item><DynamicCardViewer card={item} /></Item></a>
+      <Item>
+        <DynamicCardViewer card={item} />
+      </Item>
     )
   }
 
@@ -17,7 +19,7 @@ const CardsViewer = ({ cards }: CardsViewerProps) => {
     return (
       <>
         <Title>
-          <h3>Showing {cards.length} Cards Sent.</h3>
+          <h3>Showing {cards.length} Cards.</h3>
         </Title>
         <CardGrid>
           <FlipViewer items={range(0, cards.length)} renderItem={renderItem} />
@@ -27,13 +29,16 @@ const CardsViewer = ({ cards }: CardsViewerProps) => {
   } else {
     return (
       <>
-        <p>No sent cards!</p>
+        <p>No cards!</p>
       </>
     )
   }
 }
 
-const Item = styled.div`width: 300px; height: 300px;`
+const Item = styled.div`
+  width: 300px;
+  height: 300px;
+`
 
 const CardGrid = styled.div`
   padding: 1rem;
@@ -54,6 +59,5 @@ const Title = styled.div`
   gap: 1em;
   width: 100%;
 `
-
 
 export default CardsViewer

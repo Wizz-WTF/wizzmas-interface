@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { PrimaryButton, VStack, HStack, SmallTitle, Segment, Button } from '../generic/StyledComponents'
+import { VStack, HStack, Button } from '../generic/StyledComponents'
 import CardPreview from './CardPreview'
 import TemplatePicker from './TemplatePicker'
 import MessagePicker from './MessagePicker'
 import TokenPicker, { SelectedToken } from './TokenPicker'
 import RecipientInput from './RecipientInput'
 import Mint from './Mint'
+import { DynamicCardPreviewer } from '../card/DynamicCardViewer'
 
 const CardCreator = () => {
   const [inputSelection, setInputSelection] = useState<number>(0)
@@ -59,12 +60,22 @@ const CardCreator = () => {
               />
             </>
           )}
-          <CardPreview templateType={selectedTemplate} token={selectedToken} message={selectedMessage} />
+          {inputSelection < 4 && (
+            <CardPreview templateType={selectedTemplate} token={selectedToken} message={selectedMessage} />
+          )}
         </VStack>
       </Content>
     </>
   )
 }
+
+const FinalPreviewWrapper = styled.div`
+  width: 450px;
+  height: 450px;
+  max-width: 1500px;
+  max-height: 1180px;
+  object-fit: cover;
+`
 
 const Content = styled.div`
   border-style: dashed;

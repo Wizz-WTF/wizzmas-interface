@@ -3,9 +3,11 @@ import { NextPage } from 'next'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction, useContractRead, useAccount } from 'wagmi'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
 import WizzmasArtworkArtifact from '../../contracts/artifacts/WizzmasArtwork.json'
-import { PrimaryButton, SmallTitle } from '../generic/StyledComponents'
+import { MediumTitle, PrimaryButton, SmallTitle } from '../generic/StyledComponents'
 import DisplayError from '../generic/DisplayError'
 import { SelectedToken } from './TokenPicker'
+import { DynamicCardPreviewer } from '../card/DynamicCardViewer'
+import styled from 'styled-components'
 
 export type MintProps = {
   artworkType: number | undefined
@@ -58,8 +60,22 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     return <SmallTitle>Checking your wallet for artworks...</SmallTitle>
   }
 
+  if (numArtworks < 1) {
+  }
+
   return (
     <>
+    <MediumTitle>Wizzmas Card Ready!</MediumTitle>
+      <PreviewWrapper>
+        <DynamicCardPreviewer
+          artwork={artworkType}
+          message={message}
+          template={templateType}
+          token={token?.tokenId}
+          tokenContract={token?.tokenContract}
+        />
+      </PreviewWrapper>
+      <p>This card will be sent to {recipient}</p>
       {numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
       <PrimaryButton disabled={!write || isLoading} onClick={() => write!()}>
         {isLoading ? 'Minting...' : 'Mint now'}
@@ -71,3 +87,10 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
 }
 
 export default Mint
+
+const PreviewWrapper = styled.div`
+  width: 375px;
+  height: 295px;
+  margin-left: auto;
+    margin-right: auto;
+`

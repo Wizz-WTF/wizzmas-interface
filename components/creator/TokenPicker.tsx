@@ -1,8 +1,8 @@
 import { BigNumber } from 'ethers'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useAccount, useContractRead } from 'wagmi'
-import { SUPPORTED_TOKENS } from '../../constants'
+import { useAccount } from 'wagmi'
+import { FRWC_SOULS_ADDRESS, FRWC_WARRIORS_ADDRESS, FRWC_WIZARDS_ADDRESS } from '../../constants'
 import { getNFTs } from '../../lib/AlchemyUtil'
 import Picker from '../generic/Picker'
 import { fetchRunesWalkCycleFront } from '../../lib/TokenArtwork'
@@ -16,7 +16,7 @@ type SelectedTokenProps = {
   onTokenSelected: (selected: SelectedToken) => void
 }
 const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
-  const supportedTokens = SUPPORTED_TOKENS
+  const supportedTokens = [FRWC_WIZARDS_ADDRESS, FRWC_SOULS_ADDRESS, FRWC_WARRIORS_ADDRESS]
   const { address } = useAccount()
 
   const [ownedTokens, setOwnedTokens] = useState<any | undefined>(undefined)

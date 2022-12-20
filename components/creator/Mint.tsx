@@ -31,6 +31,16 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     args: [address, artworkType],
   })
 
+  const {
+    data: mintEnabled,
+    isError: isMintEnabledError,
+    isLoading: isMintEnabledLoading,
+  } = useContractRead({
+    addressOrName: process.env.NEXT_PUBLIC_CARD_CONTRACT_ADDRESS ?? '',
+    contractInterface: WizzmasCardArtifact.abi,
+    functionName: 'mintEnabled',
+  })
+
   const { config, error: prepareError } = usePrepareContractWrite({
     addressOrName: process.env.NEXT_PUBLIC_CARD_CONTRACT_ADDRESS ?? '',
     contractInterface: WizzmasCardArtifact.abi,
@@ -78,7 +88,7 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
       <p>This card will be sent to {recipient}</p>
       {numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
       <PrimaryButton disabled={!write || isLoading} onClick={() => write!()}>
-        {isLoading ? 'Minting...' : 'Mint now'}
+        {isLoading ? 'Minting...' : mintEnabled ? 'Mint Closed...' : 'Mint now'}
       </PrimaryButton>
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
       {isSuccess && <SmallTitle>Congrats, you sent a Wizzmas Card to {recipient}!</SmallTitle>}

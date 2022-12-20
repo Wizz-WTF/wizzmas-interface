@@ -22,6 +22,8 @@ export const DynamicCardPreviewer = ({
     url += message != undefined ? `&message=${message}` : ''
     url += tokenContract ? `&contract=${tokenContract}` : ''
     url += token != undefined ? `&token=${token}` : ''
+    console.log('build back url')
+    console.log(url);
     return url
   }
 

@@ -48,11 +48,11 @@ const CardCreator = () => {
           {inputSelection == 1 && <TokenPicker onTokenSelected={setSelectedToken} />}
           {inputSelection == 2 && <MessagePicker userMessage={selectedMessage} onMessageValid={setSelectedMessage} />}
           {inputSelection == 3 && <RecipientInput userRecipient={recipient} onRecipientValid={setRecipient} />}
-          <div>
+          <Content2>
             {inputSelection < 4 && (
               <CardPreview templateType={selectedTemplate} token={selectedToken} message={selectedMessage} />
             )}
-          </div>
+          </Content2>
           {inputSelection == 4 && (
             <Mint
               artworkType={selectedCover}
@@ -67,6 +67,11 @@ const CardCreator = () => {
     </>
   )
 }
+
+const Content2 = styled.div`
+  height: 100%;
+  width: 100%;
+`
 
 const Content = styled.div`
   border-style: dashed;

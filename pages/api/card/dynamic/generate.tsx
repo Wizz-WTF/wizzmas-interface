@@ -14,12 +14,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const backUrl = `${
       getBaseUrl() ?? 'http://localhost:3000'
     }/api/card/img/generate?token=${token}&contract=${tokenContract}&message=${message}&template=${template}`
-    const content = generateDynamicCard(frontUrl, backUrl);
-    res.setHeader("Content-Type", "text/html");
-    res.setHeader(
-      "Cache-Control",
-      `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
-    );  
+    const content = generateDynamicCard(frontUrl, backUrl)
+    res.setHeader('Content-Type', 'text/html')
+    res.setHeader('Cache-Control', `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`)
     return res.end(content)
   } catch {
     return res.status(404).end()

@@ -7,18 +7,18 @@ import { useRouter } from "next/router";
 
 interface NavLink {
   name: string;
-  path: string;
+  paths: string[];
 }
 
 const navLinks: NavLink[] = [
-  { name: "Wizzmas", path: "/wizzmas" },
+  { name: "Wizzmas", paths: ["/", "/wizzmas"] },
   {
     name: "Send Wizzmas Cards",
-    path: "/send",
+    paths: ["/send"],
   },
   {
     name: "My Wizzmas Cards",
-    path: "/view",
+    paths: ["/view"],
   },
   /*{
     name: "Gallery",
@@ -31,8 +31,8 @@ const NavItem = ({ item }: { item: NavLink }) => {
 
   return (
     <p>
-      <a href={item.path}>
-        {router.pathname === item.path ? `[ ${item.name} ]` : item.name}
+      <a href={item.paths[0]}>
+        {item.paths.includes(router.pathname) ? `[ ${item.name} ]` : item.name}
       </a>
     </p>
   );

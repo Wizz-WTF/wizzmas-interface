@@ -66,16 +66,9 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
 
   let numArtworks = balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : 0
 
-  if (isBalanceOfArtworkLoading) {
-    return <SmallTitle>Checking your wallet for artworks...</SmallTitle>
-  }
-
-  if (numArtworks < 1) {
-  }
-
   return (
     <>
-    <MediumTitle>Wizzmas Card Ready!</MediumTitle>
+      <MediumTitle>Wizzmas Card Ready!</MediumTitle>
       <PreviewWrapper>
         <DynamicCardPreviewer
           artwork={artworkType}
@@ -85,12 +78,17 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
           tokenContract={token?.tokenContract}
         />
       </PreviewWrapper>
+
       <p>This card will be sent to {recipient}</p>
-      {numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
+
+      {isBalanceOfArtworkLoading && <SmallTitle>Checking your wallet for artworks...</SmallTitle>}
+      {!isBalanceOfArtworkLoading && numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
+
       <PrimaryButton disabled={!write || isLoading || !mintEnabled} onClick={() => write!()}>
-        {isLoading ? 'Minting...' : !mintEnabled ? 'Mint Closed...' : 'Mint now'}
+      {isLoading ? 'Minting...' : !mintEnabled ? 'Mint Closed...' : 'Mint now'}
       </PrimaryButton>
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
+
       {isSuccess && <SmallTitle>Congrats, you sent a Wizzmas Card to {recipient}!</SmallTitle>}
     </>
   )
@@ -102,5 +100,5 @@ const PreviewWrapper = styled.div`
   width: 375px;
   height: 295px;
   margin-left: auto;
-    margin-right: auto;
+  margin-right: auto;
 `

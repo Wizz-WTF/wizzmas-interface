@@ -20,14 +20,6 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
     functionName: 'numTemplates',
   })
 
-  if (isLoading) {
-    return <>Loading templates...</>
-  }
-
-  if (isError) {
-    return <>Could not load templates...</>
-  }
-
   const renderItem = (template: number) => {
     return (
       <Item>
@@ -41,6 +33,8 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
       {numTemplates && (
         <VStack>
           <MediumTitle>Select template:</MediumTitle>
+          {isLoading && <p>Loading templates...</p>}
+          {isError && <p>Could not load templates...</p>}
           <TemplateStack>
             <Picker items={range(0, Number(numTemplates))} renderItem={renderItem} onSelected={onTemplateSelected} />
           </TemplateStack>

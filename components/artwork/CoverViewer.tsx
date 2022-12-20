@@ -1,12 +1,10 @@
 import styled from 'styled-components'
-import { DynamicCardPreviewer } from '../card/DynamicCardViewer';
 
 const CoverViewer = () => {
   return (
     <div>
       <Item>
-        <Image src={`/api/artwork/gif/0`} />
-        
+        <Image src={`/api/artwork/gif/0`} />        
       </Item>
     </div>
   )

@@ -1,6 +1,44 @@
+import build from 'next/dist/build'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useContractRead } from 'wagmi'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
+import { Segment, VStack } from '../generic/StyledComponents'
+
+type Card = {
+  tokenContract: string
+  token: number
+  artwork: number
+  template: number
+  message: string
+}
+
+export const useCardMeta = (cardId: number) => {
+  const [card, setCard] = useState<any | undefined>(undefined)
+
+  useEffect(() => {
+    fetch(`/api/card/meta/${cardId}`)
+      .then((res) => res?.json())
+      .then((json) => setCard(json))
+  }, [])
+
+  return [card] as const
+}
+
+export const useCard = (cardId: number) => {
+  const [card, setCard] = useState<Card | undefined>(undefined)
+  useContractRead({
+    addressOrName: process.env.NEXT_PUBLIC_CARD_CONTRACT_ADDRESS ?? '',
+    contractInterface: WizzmasCardArtifact.abi,
+    functionName: 'getCard',
+    args: [cardId],
+    onSuccess: (data) => {
+      setCard(data as unknown as Card)
+    },
+  })
+
+  return [card] as const
+}
 
 type DynamicCardPreviewerProps = {
   tokenContract: string | undefined
@@ -24,6 +62,7 @@ export const DynamicCardPreviewer = ({
     url += token != undefined ? `&token=${token}` : ''
     return url
   }
+  const backUrl = buildBackURL()
 
   return (
     <>
@@ -33,7 +72,7 @@ export const DynamicCardPreviewer = ({
             <FlipCardImage src={`/api/artwork/gif/${artwork}`} />
           </FlipCardFront>
           <FlipCardBack>
-            <FlipCardImage src={buildBackURL()} />
+            <FlipCardImage src={backUrl} />
           </FlipCardBack>
         </FlipCardInner>
       </FlipCard>
@@ -43,16 +82,7 @@ export const DynamicCardPreviewer = ({
 
 type DynamicCardViewerProps = { card: number }
 export const DynamicCardViewer = ({ card }: DynamicCardViewerProps) => {
-  const {
-    data: cardData,
-    isError,
-    isLoading,
-  } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_CARD_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasCardArtifact.abi,
-    functionName: 'getCard',
-    args: [card],
-  })
+  const [cardData] = useCard(card)
 
   return (
     <>

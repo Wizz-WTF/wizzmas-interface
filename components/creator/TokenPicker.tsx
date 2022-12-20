@@ -6,7 +6,7 @@ import { FRWC_SOULS_ADDRESS, FRWC_WARRIORS_ADDRESS, FRWC_WIZARDS_ADDRESS } from 
 import { getNFTs } from '../../lib/AlchemyUtil'
 import Picker from '../generic/Picker'
 import { fetchRunesWalkCycleFront } from '../../lib/TokenArtwork'
-import { MediumTitle, VStack } from '../generic/StyledComponents'
+import { HStack, MediumTitle, VStack } from '../generic/StyledComponents'
 
 export interface SelectedToken {
   tokenContract: string
@@ -20,6 +20,7 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
   const supportedTokens = [FRWC_WIZARDS_ADDRESS, FRWC_SOULS_ADDRESS, FRWC_WARRIORS_ADDRESS]
   const { address } = useAccount()
 
+  const [loadingTokens, setLoadingTokens] = useState(false)
   const [ownedTokens, setOwnedTokens] = useState<any | undefined>(undefined)
   const [ownedTokensError, setOwnedTokensError] = useState<Error | null>(null)
 
@@ -28,89 +29,60 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
   }
 
   useEffect(() => {
+    setLoadingTokens(true)
     getNFTs(
       address,
       supportedTokens.map((c) => c.toString())
     )
-      .then((res) => setOwnedTokens(res.ownedNfts))
-      .catch((error) => setOwnedTokensError(error))
-  }, [supportedTokens])
+      .then((res) => {
+        setOwnedTokens(res.ownedNfts)
+        setLoadingTokens(false)
+      })
+      .catch((error) => {
+        setLoadingTokens(false)
+        setOwnedTokensError(error)
+      })
+  }, [])
 
   const renderItem = (item: any) => {
     let id = BigNumber.from(item.id.tokenId).toNumber()
     let imgUrl = fetchRunesWalkCycleFront(item.contract.address, id)
     return (
       <Item>
-        {/* <TokenImageWrapper> */}
-          <TokenImage src={imgUrl} />
-        {/* </TokenImageWrapper> */}
-        {/* <TokenTextWrapper>
-          <TokenText>{item.metadata.name}</TokenText>
-        </TokenTextWrapper> */}
+        <TokenImage src={imgUrl} />
       </Item>
     )
-  }
-
-  if (ownedTokensError) {
-    return <p>Could not load wallet NFTS....</p>
   }
 
   return (
     <VStack>
       <MediumTitle>Select NFT:</MediumTitle>
-        <HStackScroll>
-          {ownedTokens && (
-            <>
-              <Picker
-                items={ownedTokens}
-                onSelected={(item) =>
-                  onTokenSelected({
-                    tokenContract: item.contract.address,
-                    tokenId: BigNumber.from(item.id.tokenId).toNumber(),
-                  })
-                }
-                renderItem={renderItem}
-              />
-              {ownedTokens.length == 0 && <>You have no tokens.</>}
-            </>
-          )}
-        </HStackScroll>
+      {loadingTokens == true && <p>Checking wallet...</p>}
+      {ownedTokensError && <p>Could not load wallet NFTs...</p>}
+      <HStack>
+        {ownedTokens && (
+          <>
+            <Picker
+              items={ownedTokens}
+              onSelected={(item) =>
+                onTokenSelected({
+                  tokenContract: item.contract.address,
+                  tokenId: BigNumber.from(item.id.tokenId).toNumber(),
+                })
+              }
+              renderItem={renderItem}
+            />
+            {ownedTokens.length == 0 && <p>You have no eligible tokens.</p>}
+          </>
+        )}
+      </HStack>
     </VStack>
   )
 }
 
-
-export const HStackScroll = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: stretch;
-  flex-wrap: wrap;
-  gap: 1em;
-`
-
 const Item = styled.div`
   width: 100px;
   height: 100px;
-`
-
-const TokenTextWrapper = styled.div`
-  padding: 0.2em;
-`
-
-const TokenImageWrapper = styled.div`
-  background-color: #c5a565;
-`
-
-const TokenText = styled.p`
-  text-align: center;
-  font-size: 0.9em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  display: block;
-  line-height: 1em;
-  max-height: 2em; /* number of lines to show  */
 `
 
 const TokenImage = styled.img`

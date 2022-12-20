@@ -14,11 +14,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   const imagePath = path.resolve('./data/artwork', `gif/${token}.gif`)
   const imageBuffer = fs.readFileSync(imagePath)
-  res.setHeader("Content-Type", "image/gif");
-  res.setHeader(
-    "Cache-Control",
-    `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`
-  );
+  res.setHeader('Content-Type', 'image/gif')
+  res.setHeader('Cache-Control', `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`)
   return res.end(imageBuffer)
 }
 

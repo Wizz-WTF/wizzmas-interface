@@ -59,6 +59,7 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
       <MediumTitle>Select NFT:</MediumTitle>
       {loadingTokens == true && <p>Checking wallet...</p>}
       {ownedTokensError && <p>Could not load wallet NFTs...</p>}
+      <TokenBox>
       <HStack>
         {ownedTokens && (
           <>
@@ -76,9 +77,18 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
           </>
         )}
       </HStack>
+      </TokenBox>
     </VStack>
   )
 }
+
+
+const TokenBox = styled.div`
+  height: 500px;
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow: scroll;
+`
 
 const Item = styled.div`
   width: 100px;

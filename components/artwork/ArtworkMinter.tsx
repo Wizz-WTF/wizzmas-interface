@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useAccount, useContractRead } from "wagmi";
-import WizzmasArtworkMinterArtifact from "../../contracts/artifacts/WizzmasArtworkMinter.json";
+import WizzWTFArtifact from "../../contracts/artifacts/WizzWTFMinter.json";
 import ArtworkClaim from "./ArtworkClaim";
 import ArtworkMint from "./ArtworkMint";
 import CoverViewer from "./CoverViewer";
@@ -14,8 +14,8 @@ const ArtworkMinter: NextPage = () => {
     isError: isCanClaimError,
     isLoading: isCanClaimLoading,
   } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasArtworkMinterArtifact.abi,
+    addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_MINTER_ADDRESS ?? '',
+    contractInterface: WizzWTFArtifact.abi,
     functionName: 'canClaim',
     args: [address],
   })
@@ -25,8 +25,8 @@ const ArtworkMinter: NextPage = () => {
     isError: isMintEnabledError,
     isLoading: isMintEnabledLoading,
   } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasArtworkMinterArtifact.abi,
+    addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_MINTER_ADDRESS ?? '',
+    contractInterface: WizzWTFArtifact.abi,
     functionName: "mintEnabled",
   });
 
@@ -37,7 +37,7 @@ const ArtworkMinter: NextPage = () => {
   if (mintEnabled) {
     return (
       <>
-        <MediumTitle>Wizzmas Cover</MediumTitle>
+        <MediumTitle>Wizz WTF</MediumTitle>
         {isMintEnabledLoading ||
           (isCanClaimLoading && <SmallTitle>Loading...</SmallTitle>)}
         <CoverViewer />

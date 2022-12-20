@@ -2,7 +2,7 @@ import { ethers, BigNumber } from 'ethers'
 import { NextPage } from 'next'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction, useContractRead, useAccount } from 'wagmi'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
-import WizzmasArtworkArtifact from '../../contracts/artifacts/WizzmasArtwork.json'
+import WizzWTFArtifact from '../../contracts/artifacts/WizzWTF.json'
 import { MediumTitle, PrimaryButton, SmallTitle } from '../generic/StyledComponents'
 import DisplayError from '../generic/DisplayError'
 import { SelectedToken } from './TokenPicker'
@@ -25,8 +25,8 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     isError: isBalanceOfArtworkError,
     isLoading: isBalanceOfArtworkLoading,
   } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORK_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasArtworkArtifact.abi,
+    addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_ADDRESS ?? '',
+    contractInterface: WizzWTFArtifact.abi,
     functionName: 'balanceOf',
     args: [address, artworkType],
   })
@@ -81,7 +81,7 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
         {isLoading ? 'Minting...' : 'Mint now'}
       </PrimaryButton>
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
-      {isSuccess && <SmallTitle>Congrats, you sent a WizzmasCard to {recipient}!</SmallTitle>}
+      {isSuccess && <SmallTitle>Congrats, you sent a Wizzmas Card to {recipient}!</SmallTitle>}
     </>
   )
 }

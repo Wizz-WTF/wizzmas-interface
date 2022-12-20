@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useContractRead } from 'wagmi'
+import { getBaseUrl } from '../../constants'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
 
 type DynamicCardPreviewerProps = {
@@ -17,7 +18,8 @@ export const DynamicCardPreviewer = ({
   message,
 }: DynamicCardPreviewerProps) => {
   function buildBackURL(): string {
-    var url = '/api/card/img/generate?'
+    var url = getBaseUrl() ?? 'http://localhost:3000'
+    url += '/api/card/img/generate?'
     url += template != undefined ? `&template=${template}` : ''
     url += message != undefined ? `&message=${message}` : ''
     url += tokenContract ? `&contract=${tokenContract}` : ''

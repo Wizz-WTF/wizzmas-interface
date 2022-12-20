@@ -97,8 +97,6 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
 export default Mint
 
 const PreviewWrapper = styled.div`
-  width: 375px;
-  height: 295px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 80vw;
+  height: 60vw;
 `

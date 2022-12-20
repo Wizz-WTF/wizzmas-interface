@@ -67,18 +67,16 @@ export const DynamicCardPreviewer = ({
   const backUrl = buildBackURL()
 
   return (
-    <>
-      <FlipCard>
-        <FlipCardInner>
-          <FlipCardFront>
-            <FlipCardImage src={`/api/artwork/gif/${artwork}`} />
-          </FlipCardFront>
-          <FlipCardBack>
-            <FlipCardImage src={backUrl} />
-          </FlipCardBack>
-        </FlipCardInner>
-      </FlipCard>
-    </>
+    <FlipCard>
+      <FlipCardInner>
+        <FlipCardFront>
+          <FlipCardImage src={`/api/artwork/gif/${artwork}`} />
+        </FlipCardFront>
+        <FlipCardBack>
+          <FlipCardImage src={backUrl} />
+        </FlipCardBack>
+      </FlipCardInner>
+    </FlipCard>
   )
 }
 
@@ -110,20 +108,24 @@ const FlipCard = styled.div`
 
 const FlipCardInner = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: inherit;
+  height: inherit;
+  
   transition: transform 0.8s;
   transform-style: preserve-3d;
   // transition-timing-function: ease-out;
   // :hover, :active {
   //   transform: rotateY(180deg);
   // }
-  -webkit-animation: cog 8s infinite;
-	-moz-animation: cog 8s infinite;
-	-ms-animation: cog 8s infinite; 			
-	animation: cog 8s infinite;
+  
+  -webkit-animation: flip 8s infinite;
+	-moz-animation: flip 8s infinite;
+	-ms-animation: flip 8s infinite; 			
+	animation: flip 8s infinite;
   animation-direction: alternate;
-  @keyframes cog {
+  animation-timing-function: ease-in-out;
+  
+  @keyframes flip {
     0%, 20% { 
       -moz-transform: rotateY(0deg);
       -ms-transform: rotateY(0deg);
@@ -139,12 +141,12 @@ const FlipCardInner = styled.div`
       -ms-transform: rotateY(0deg);
       transform: rotateY(0deg)
     }
-  `
+`
 
 const FlipCardFront = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: inherit;
+  height: inherit;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
   transform: rotateY(0deg);
@@ -152,8 +154,8 @@ const FlipCardFront = styled.div`
 
 const FlipCardBack = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: inherit;
+  height: inherit;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
   transform: rotateY(180deg);

@@ -4,23 +4,11 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { useRouter } from 'next/router'
 import { DynamicCardViewer, useCardMeta } from '../../components/card/DynamicCardViewer'
+import { AttributesBoxView } from '../../components/generic/Attributes'
 
 const CardMetaView = ({ card }: { card: number }) => {
   const [cardMeta] = useCardMeta(card)
-  return (
-    <>
-      {cardMeta && (
-        <Table>
-          {cardMeta.attributes.map((attr: any, i: any) => (
-            <Row key={i}>
-              <TraitName>{attr.trait_type}</TraitName>
-              <TraitValue>{attr.value}</TraitValue>
-            </Row>
-          ))}
-        </Table>
-      )}
-    </>
-  )
+  return <>{cardMeta && <AttributesBoxView attributes={cardMeta.attributes} />}</>
 }
 
 const ViewCard = () => {
@@ -82,30 +70,6 @@ export const FillSection = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   gap: 1em;
-`
-
-export const Table = styled.div`
-  min-width: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.8em;
-`
-
-export const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  :first-child {
-    color: gray;
-  }
-`
-
-export const TraitName = styled.div`
-  color: gray;
-`
-export const TraitValue = styled.div`
-  color: white;
 `
 
 export default ViewCard

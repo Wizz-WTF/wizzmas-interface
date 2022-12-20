@@ -37,7 +37,7 @@ const ArtworkMinter: NextPage = () => {
   if (mintEnabled) {
     return (
       <>
-        <MediumTitle>Wizz WTF</MediumTitle>
+        <MediumTitle>Wizzmas WTF NFT</MediumTitle>
         {isMintEnabledLoading ||
           (isCanClaimLoading && <SmallTitle>Loading...</SmallTitle>)}
         <CoverViewer />

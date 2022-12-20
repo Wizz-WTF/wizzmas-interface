@@ -11,19 +11,19 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { name: "Covers", path: "/covers" },
+  { name: "Wizzmas", path: "/wizzmas" },
   {
-    name: "Send Cards",
+    name: "Send Wizzmas Cards",
     path: "/send",
   },
   {
-    name: "My Cards",
+    name: "My Wizzmas Cards",
     path: "/view",
   },
-  {
+  /*{
     name: "Gallery",
     path: "/gallery",
-  },
+  },*/
 ];
 
 const NavItem = ({ item }: { item: NavLink }) => {
@@ -64,7 +64,7 @@ const Header: NextPage = () => {
         <Nav>
           <Title>
             <a href="/">
-              <h1>Wizz Cards</h1>
+              <h1>Wizz WTF</h1>
             </a>
             <Connect>
               <ConnectButton />

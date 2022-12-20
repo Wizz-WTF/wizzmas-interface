@@ -47,9 +47,9 @@ export const PrimaryButton = styled.button`
   flex-grow: 1;
   color: black;
   border: none;
-  background-color: yellow;
+  background-color: red;
   :hover {
-    background-color: orange;
+    background-color: green;
   }
   :active {
     background-color: red;

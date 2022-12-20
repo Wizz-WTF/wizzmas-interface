@@ -7,23 +7,23 @@ import { useRouter } from "next/router";
 
 interface NavLink {
   name: string;
-  path: string;
+  paths: string[];
 }
 
 const navLinks: NavLink[] = [
-  { name: "Covers", path: "/covers" },
+  { name: "Wizzmas", paths: ["/", "/wizzmas"] },
   {
-    name: "Send Cards",
-    path: "/send",
+    name: "Send Wizzmas Cards",
+    paths: ["/send"],
   },
   {
-    name: "My Cards",
-    path: "/view",
+    name: "My Wizzmas Cards",
+    paths: ["/view"],
   },
-  {
+  /*{
     name: "Gallery",
     path: "/gallery",
-  },
+  },*/
 ];
 
 const NavItem = ({ item }: { item: NavLink }) => {
@@ -31,8 +31,8 @@ const NavItem = ({ item }: { item: NavLink }) => {
 
   return (
     <p>
-      <a href={item.path}>
-        {router.pathname === item.path ? `[ ${item.name} ]` : item.name}
+      <a href={item.paths[0]}>
+        {item.paths.includes(router.pathname) ? `[ ${item.name} ]` : item.name}
       </a>
     </p>
   );
@@ -64,7 +64,7 @@ const Header: NextPage = () => {
         <Nav>
           <Title>
             <a href="/">
-              <h1>Wizz Cards</h1>
+              <h1>Wizz WTF</h1>
             </a>
             <Connect>
               <ConnectButton />

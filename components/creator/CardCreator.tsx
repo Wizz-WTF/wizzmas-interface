@@ -7,7 +7,6 @@ import MessagePicker from './MessagePicker'
 import TokenPicker, { SelectedToken } from './TokenPicker'
 import RecipientInput from './RecipientInput'
 import Mint from './Mint'
-import { DynamicCardPreviewer } from '../card/DynamicCardViewer'
 
 const CardCreator = () => {
   const [inputSelection, setInputSelection] = useState<number>(0)
@@ -49,33 +48,23 @@ const CardCreator = () => {
           {inputSelection == 1 && <TokenPicker onTokenSelected={setSelectedToken} />}
           {inputSelection == 2 && <MessagePicker userMessage={selectedMessage} onMessageValid={setSelectedMessage} />}
           {inputSelection == 3 && <RecipientInput userRecipient={recipient} onRecipientValid={setRecipient} />}
-          {inputSelection == 4 && (
-            <>
-              <Mint
-                artworkType={selectedCover}
-                templateType={selectedTemplate}
-                message={selectedMessage}
-                token={selectedToken}
-                recipient={recipient}
-              />
-            </>
-          )}
           {inputSelection < 4 && (
             <CardPreview templateType={selectedTemplate} token={selectedToken} message={selectedMessage} />
+          )}
+          {inputSelection == 4 && (
+            <Mint
+              artworkType={selectedCover}
+              templateType={selectedTemplate}
+              message={selectedMessage}
+              token={selectedToken}
+              recipient={recipient}
+            />
           )}
         </VStack>
       </Content>
     </>
   )
 }
-
-const FinalPreviewWrapper = styled.div`
-  width: 450px;
-  height: 450px;
-  max-width: 1500px;
-  max-height: 1180px;
-  object-fit: cover;
-`
 
 const Content = styled.div`
   border-style: dashed;

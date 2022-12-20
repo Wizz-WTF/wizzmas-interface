@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { useContractRead, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-import WizzmasArtworkMinterArtifact from '../../contracts/artifacts/WizzmasArtworkMinter.json'
+import WizzWTFMinterArtifact from '../../contracts/artifacts/WizzWTFMinter.json'
 import DisplayError from '../generic/DisplayError'
 import { PrimaryButton, SmallTitle } from '../generic/StyledComponents'
 
@@ -13,14 +13,14 @@ const ArtworkMint: NextPage<ArtworkMintProps> = ({ artworkType }: ArtworkMintPro
     isError: isPriceError,
     isLoading: isPriceLoading,
   } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasArtworkMinterArtifact.abi,
+    addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_MINTER_ADDRESS ?? '',
+    contractInterface: WizzWTFMinterArtifact.abi,
     functionName: 'mintPrice',
   })
 
   const { config, error: prepareError } = usePrepareContractWrite({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasArtworkMinterArtifact.abi,
+    addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_MINTER_ADDRESS ?? '',
+    contractInterface: WizzWTFMinterArtifact.abi,
     functionName: 'mint',
     args: [artworkType],
     overrides: { value: mintPrice },
@@ -45,7 +45,7 @@ const ArtworkMint: NextPage<ArtworkMintProps> = ({ artworkType }: ArtworkMintPro
         {isLoading ? 'Minting...' : 'Mint now'}
       </PrimaryButton>
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
-      {isSuccess && <SmallTitle>Congrats, you minted a WizzmasArtwork!</SmallTitle>}
+      {isSuccess && <SmallTitle>Congrats, you minted a Wizz WTF!</SmallTitle>}
     </>
   )
 }

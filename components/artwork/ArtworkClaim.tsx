@@ -1,14 +1,14 @@
 import { NextPage } from 'next'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-import WizzmasArtworkMinterArtifact from '../../contracts/artifacts/WizzmasArtworkMinter.json'
+import WizzWTFMinterAtrifact from '../../contracts/artifacts/WizzWTFMinter.json'
 import DisplayError from '../generic/DisplayError'
 import { PrimaryButton, SmallTitle } from '../generic/StyledComponents'
 import { ArtworkMintProps } from './ArtworkMint'
 
 const ArtworkClaim: NextPage<ArtworkMintProps> = ({ artworkType }: ArtworkMintProps) => {
   const { config, error: prepareError } = usePrepareContractWrite({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORKMINTER_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasArtworkMinterArtifact.abi,
+    addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_MINTER_ADDRESS ?? '',
+    contractInterface: WizzWTFMinterAtrifact.abi,
     functionName: 'claim',
     args: [artworkType],
   })
@@ -23,7 +23,7 @@ const ArtworkClaim: NextPage<ArtworkMintProps> = ({ artworkType }: ArtworkMintPr
   })
 
   if (isSuccess) {
-    return <SmallTitle>Congrats, you claimed a free WizzmasArtwork!</SmallTitle>
+    return <SmallTitle>Congrats, you claimed a free Wizz WTF!</SmallTitle>
   }
 
   return (

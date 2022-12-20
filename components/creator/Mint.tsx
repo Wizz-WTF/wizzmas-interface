@@ -2,7 +2,7 @@ import { ethers, BigNumber } from 'ethers'
 import { NextPage } from 'next'
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction, useContractRead, useAccount } from 'wagmi'
 import WizzmasCardArtifact from '../../contracts/artifacts/WizzmasCard.json'
-import WizzmasArtworkArtifact from '../../contracts/artifacts/WizzmasArtwork.json'
+import WizzWTFArtifact from '../../contracts/artifacts/WizzWTF.json'
 import { MediumTitle, PrimaryButton, SmallTitle } from '../generic/StyledComponents'
 import DisplayError from '../generic/DisplayError'
 import { SelectedToken } from './TokenPicker'
@@ -25,10 +25,20 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     isError: isBalanceOfArtworkError,
     isLoading: isBalanceOfArtworkLoading,
   } = useContractRead({
-    addressOrName: process.env.NEXT_PUBLIC_ARTWORK_CONTRACT_ADDRESS ?? '',
-    contractInterface: WizzmasArtworkArtifact.abi,
+    addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_ADDRESS ?? '',
+    contractInterface: WizzWTFArtifact.abi,
     functionName: 'balanceOf',
     args: [address, artworkType],
+  })
+
+  const {
+    data: mintEnabled,
+    isError: isMintEnabledError,
+    isLoading: isMintEnabledLoading,
+  } = useContractRead({
+    addressOrName: process.env.NEXT_PUBLIC_CARD_CONTRACT_ADDRESS ?? '',
+    contractInterface: WizzmasCardArtifact.abi,
+    functionName: 'mintEnabled',
   })
 
   const { config, error: prepareError } = usePrepareContractWrite({
@@ -74,12 +84,12 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
       {isBalanceOfArtworkLoading && <SmallTitle>Checking your wallet for artworks...</SmallTitle>}
       {!isBalanceOfArtworkLoading && numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
 
-      <PrimaryButton disabled={!write || isLoading} onClick={() => write!()}>
-        {isLoading ? 'Minting...' : 'Mint now'}
+      <PrimaryButton disabled={!write || isLoading || !mintEnabled} onClick={() => write!()}>
+      {isLoading ? 'Minting...' : !mintEnabled ? 'Mint Closed...' : 'Mint now'}
       </PrimaryButton>
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
 
-      {isSuccess && <SmallTitle>Congrats, you sent a WizzmasCard to {recipient}!</SmallTitle>}
+      {isSuccess && <SmallTitle>Congrats, you sent a Wizzmas Card to {recipient}!</SmallTitle>}
     </>
   )
 }
@@ -87,8 +97,6 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
 export default Mint
 
 const PreviewWrapper = styled.div`
-  width: 375px;
-  height: 295px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 80vw;
+  height: 60vw;
 `

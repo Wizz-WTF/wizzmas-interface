@@ -1,17 +1,17 @@
 {
-  "description": "Wizzmas Artworks",
+  "description": "Wizz WTF",
   "external_url": "https://cards.wizz.wtf",
-  "name": "Wizzmas Artwork #0",
+  "name": "Wizz WTF #0",
   "image": "https://cards.wizz.wtf/api/artwork/gif/0",
   "background_color": "000000",
   "attributes": [
     {
-      "trait_type": "Scene",
-      "value": "Hue Master's Pass"
+      "trait_type": "WIZZ WTF Cover",
+      "value": "A ColorMaster's Wizzmas Story"
     },
     {
-      "trait_type": "Scene Artist",
-      "value": "Tad"
+      "trait_type": "Wizz WTF Cover Artist",
+      "value": "@Tadmajor & @1984pxls"
     }
   ]
 }

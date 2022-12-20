@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styled from 'styled-components'
 import { range } from '../../lib/ArrayUtil'
 import FlipViewer from '../generic/FlipViewer'
@@ -9,9 +10,11 @@ type CardsViewerProps = {
 const CardsViewer = ({ cards }: CardsViewerProps) => {
   const renderItem = (item: number) => {
     return (
-      <Item>
-        <DynamicCardViewer card={item} />
-      </Item>
+      <Link href={`/view/${item}`}>
+        <Item>
+          <DynamicCardViewer card={item} />
+        </Item>
+      </Link>
     )
   }
 

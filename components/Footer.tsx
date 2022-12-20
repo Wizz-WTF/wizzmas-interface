@@ -6,10 +6,10 @@ const Footer = () => {
   return (
     <Container>
       <h3>
-        Artwork by <a href="https://twitter.com/SHADOWY30">Shadow</a> &<a href="https://twitter.com/Tadmajor"> Tad</a>
+        Created by ColorMaster Studios.
       </h3>
-      <a href="https://github.com/">GitImage-Link</a>
-      <p>Created by ColorMaster Studios.</p>
+      <a href="https://github.com/wizz-WTF">Wizz WTF GitHub</a>
+      <p>Artwork by <a href="https://twitter.com/SHADOWY30">Shadow</a>,<a href="https://twitter.com/Tadmajor"> Tad,</a><a href="https://twitter.com/1984pxls"> & 1984pxls</a></p>
     </Container>
   )
 }

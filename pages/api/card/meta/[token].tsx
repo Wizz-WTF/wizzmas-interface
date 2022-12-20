@@ -34,19 +34,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       image: `https://cards.wizz.wtf/api/card/img/${mintedCard.card}`,
       background_color: '000000',
       attributes: [
-        {
-          trait_type: 'Token',
-          value: `${mintedCard.token}`,
-        },
-        {
-          trait_type: 'Token Type',
-          value: contractName,
-        },
         ...artworkMeta.attributes,
         ...templateMeta.attributes,
         {
           trait_type: 'Message',
           value: mintedCard.message,
+        },
+        {
+          trait_type: 'Token Type',
+          value: contractName,
+        },
+        {
+          trait_type: 'Token',
+          value: `${mintedCard.token}`,
         },
       ],
     }

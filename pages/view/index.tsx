@@ -23,6 +23,8 @@ const View = () => {
             <CardReceivedViewer />
           </FillSection>
         </Content>
+
+        <Footer />
       </>
     )
   }

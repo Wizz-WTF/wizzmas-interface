@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useAccount, useContractRead } from "wagmi";
-import WizzWTFArtifact from "../../contracts/artifacts/WizzWTFMinter.json";
+import WizzWTFMinterArtifact from "../../contracts/artifacts/WizzWTFMinter.json";
 import ArtworkClaim from "./ArtworkClaim";
 import ArtworkMint from "./ArtworkMint";
 import CoverViewer from "./CoverViewer";
@@ -15,7 +15,7 @@ const ArtworkMinter: NextPage = () => {
     isLoading: isCanClaimLoading,
   } = useContractRead({
     addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_MINTER_ADDRESS ?? '',
-    contractInterface: WizzWTFArtifact.abi,
+    contractInterface: WizzWTFMinterArtifact.abi,
     functionName: 'canClaim',
     args: [address],
   })
@@ -26,7 +26,7 @@ const ArtworkMinter: NextPage = () => {
     isLoading: isMintEnabledLoading,
   } = useContractRead({
     addressOrName: process.env.NEXT_PUBLIC_WIZZ_WTF_MINTER_ADDRESS ?? '',
-    contractInterface: WizzWTFArtifact.abi,
+    contractInterface: WizzWTFMinterArtifact.abi,
     functionName: "mintEnabled",
   });
 

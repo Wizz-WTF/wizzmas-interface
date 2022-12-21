@@ -19,11 +19,11 @@ body {
 }
 
 a {
-  color: yellow;
+  color: #F8B229;
   text-decoration: none;
 }
 a:hover {
-  color: orange;
+  color: #EA4630;
 }
 
 * {

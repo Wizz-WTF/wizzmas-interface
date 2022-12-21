@@ -15,7 +15,7 @@ const CardPreview: NextPage<CardPreviewProps> = ({ templateType, token, message 
     var url = getBaseUrl() ?? 'http://localhost:3000'
     url += '/api/card/img/generate?'
     url += templateType != undefined ? `&template=${templateType}` : ''
-    url += message != undefined ? `&message=${message}` : ''
+    url += message != undefined ? `&message=${message.replace('&', '').replace('<', '').replace('+', '')}` : '' // TODO: proper URI encoding
     url += token ? `&contract=${token.tokenContract}` : ''
     url += token ? `&token=${token.tokenId}` : ''
     return url

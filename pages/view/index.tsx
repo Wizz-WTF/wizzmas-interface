@@ -18,7 +18,7 @@ const View = () => {
 
         <Content>
           <FillSection>
-            <h2>Your Cards</h2>
+            <h2>Your Wizzmas Holiday Cards</h2>
             <CardSentViewer />
             <CardReceivedViewer />
           </FillSection>

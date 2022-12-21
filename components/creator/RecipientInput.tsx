@@ -60,9 +60,9 @@ const RecipientInput = ({ userRecipient, onRecipientValid }: RecipientInputProps
 const AddedAddress = styled.div`
   width: 100%;
   padding: 1em;
-  color: yellow;
+  color: #F8B229;
   border: dashed;
-  border-color: yellow;
+  border-color: #F8B229;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;`

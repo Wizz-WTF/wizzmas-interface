@@ -17,7 +17,7 @@ const CardSender = () => {
 
         <Content>
           <FillSection>
-            <h2>Create & Send Cards</h2>
+            <h2>Create & Send Wizzmas Holiday Cards</h2>
             <CardCreator />
           </FillSection>
         </Content>

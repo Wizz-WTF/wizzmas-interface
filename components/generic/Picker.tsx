@@ -34,18 +34,18 @@ const Unselected = styled.div`
   border-color: #222;
   :hover {
     border: dashed;
-    border-color: yellow;
+    border-color: #F8B229;
   }
 `
 
 const Selected = styled.div`
-  color: yellow;
+  color: #F8B229;
   cursor: pointer;
   border: dashed;
-  border-color: yellow;
+  border-color: #F8B229;
   :hover {
     border: dashed;
-    border-color: yellow;
+    border-color: #F8B229;
   }
 `
 

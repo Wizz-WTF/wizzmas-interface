@@ -4,7 +4,7 @@ import WizzWTFMinterArtifact from '../../contracts/artifacts/WizzWTFMinter.json'
 import ArtworkClaim from './ArtworkClaim'
 import ArtworkMint from './ArtworkMint'
 import CoverViewer from './CoverViewer'
-import { MediumTitle, SmallTitle } from '../generic/StyledComponents'
+import { LargeTitle, SmallTitle } from '../generic/StyledComponents'
 
 const ArtworkMinter: NextPage = () => {
   const { address } = useAccount()
@@ -37,7 +37,7 @@ const ArtworkMinter: NextPage = () => {
   if (mintEnabled) {
     return (
       <>
-        <MediumTitle>Wizzmas WTF NFT</MediumTitle>
+        <LargeTitle>A ColorMaster's Wizzmas Story: Flippable Holiday Card NFTs</LargeTitle>
         {isMintEnabledLoading || (isCanClaimLoading && <SmallTitle>Loading...</SmallTitle>)}
         {!mintEnabled && <SmallTitle>Mint is Over!</SmallTitle>}
         {!address && mintEnabled && <SmallTitle>Connect wallet to mint!</SmallTitle>}

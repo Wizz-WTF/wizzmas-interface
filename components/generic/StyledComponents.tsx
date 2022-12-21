@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const LargeTitle = styled.h1`
-  color: yellow;
+  color: white;
 `
 
 export const MediumTitle = styled.h2`
@@ -45,14 +45,14 @@ export const PrimaryButton = styled.button`
   font-size: x-large;
   padding: 0.8em;
   flex-grow: 1;
-  color: black;
+  color: white;
   border: none;
-  background-color: yellow;
+  background-color: #165B33;
   :hover {
-    background-color: orange;
+    background-color: #146B3A;
   }
   :active {
-    background-color: red;
+    background-color: #146B3A;
   }
   :disabled {
     color: gray;
@@ -67,14 +67,14 @@ export const Button = styled.button`
   font-size: large;
   padding: 0.5em;
   flex-grow: 1;
-  color: black;
+  color: white;
   border: none;
-  background-color: yellow;
+  background-color: #BB2528;
   :hover {
-    background-color: orange;
+    background-color: #EA4630;
   }
   :active {
-    background-color: red;
+    background-color: #EA4630;
   }
   :disabled {
     color: gray;
@@ -89,5 +89,5 @@ export const TextInput = styled.input`
   padding: 1em;
   background: #00000000;
   border: dashed;
-  border-color: #222;
+  border-color: #F8B229;
 `

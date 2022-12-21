@@ -63,7 +63,7 @@ const Grid = styled.div`
 
 const Box = styled.div`
   padding: 1em;
-  background: #333;
+  background: #165B33;
   border-radius: 0.5em;
   min-width: 400px;
   display: flex;

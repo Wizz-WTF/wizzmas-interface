@@ -60,9 +60,9 @@ const MessagePicker = ({ userMessage, onMessageValid }: MessagePickerProps) => {
 const AddedMessage = styled.div`
   width: 100%;
   padding: 1em;
-  color: yellow;
+  color: #F8B229;
   border: dashed;
-  border-color: yellow;
+  border-color: #F8B229;
 `
 
 export default MessagePicker

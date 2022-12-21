@@ -8,6 +8,7 @@ import DisplayError from '../generic/DisplayError'
 import { SelectedToken } from './TokenPicker'
 import { DynamicCardPreviewer } from '../card/DynamicCardViewer'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 export type MintProps = {
   artworkType: number | undefined
@@ -67,7 +68,7 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
   let numArtworks = balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : 0
 
   return (
-    <>
+    <Wrapper>
       <MediumTitle>Wizzmas Card Ready!</MediumTitle>
       <PreviewWrapper>
         <DynamicCardPreviewer
@@ -85,18 +86,32 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
       {!isBalanceOfArtworkLoading && numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
 
       <PrimaryButton disabled={!write || isLoading || !mintEnabled} onClick={() => write!()}>
-      {isLoading ? 'Minting...' : !mintEnabled ? 'Mint Closed...' : 'Mint now'}
+        {isLoading ? 'Minting...' : !mintEnabled ? 'Mint Closed...' : 'Mint now'}
       </PrimaryButton>
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
-
-      {isSuccess && <SmallTitle>Congrats, you sent a Wizzmas Card to {recipient}!</SmallTitle>}
-    </>
+      {isSuccess && (
+        <>
+        <MediumTitle>Success! You've sent a Wizzmas Card to {recipient}!</MediumTitle>
+        <Link href="/send">-&gt; Send another Card</Link>
+        </>
+      )}
+    </Wrapper>
   )
 }
 
-export default Mint
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: no-wrap;
+  flex-direction: column;
+  gap: 1em;
+  text-align: center;
+`
 
 const PreviewWrapper = styled.div`
   width: 80vw;
   height: 60vw;
 `
+export default Mint

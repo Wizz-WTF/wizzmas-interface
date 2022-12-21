@@ -3,11 +3,11 @@ import FAQ, { Question } from './FAQ'
 const questions: Question[] = [
   {
     question: 'What is Wizz WTF?',
-    answer: 'Wizz WTF is a creation from the minds of ColorMaster Studios, where we will be experimenting with fun things for FRWC members.',
+    answer: 'Wizz WTF is a creation from the minds of ColorMaster Studios, where we will be experimenting with fun things for FRWC cult members.',
   },
   {
     question: 'But what is this specifically?',
-    answer: "ColorMaster's Wizzmas Story is a digital holiday card collection that was built for FRWC holders to create/send wizzmas card NFTs to celebrate the holidays."
+    answer: "A Wizzmas Story is a digital holiday card collection that was built for FRWC holders to create/send wizzmas card NFTs to celebrate the holidays."
   },
   {
     question: 'How does this work?',

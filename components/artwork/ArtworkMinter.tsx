@@ -37,7 +37,7 @@ const ArtworkMinter: NextPage = () => {
   if (mintEnabled) {
     return (
       <>
-        <LargeTitle>A ColorMaster's Wizzmas Story: Flippable Holiday Card NFTs</LargeTitle>
+        <LargeTitle>A Wizzmas Story: Flippable Holiday Card NFTs</LargeTitle>
         {isMintEnabledLoading || (isCanClaimLoading && <SmallTitle>Loading...</SmallTitle>)}
         {!mintEnabled && <SmallTitle>Mint is Over!</SmallTitle>}
         {!address && mintEnabled && <SmallTitle>Connect wallet to mint!</SmallTitle>}

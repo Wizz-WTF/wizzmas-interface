@@ -114,7 +114,7 @@ const NavControls = styled.div`
 const Items = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
 `

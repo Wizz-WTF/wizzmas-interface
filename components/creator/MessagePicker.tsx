@@ -13,11 +13,17 @@ const MessagePicker = ({ userMessage, onMessageValid }: MessagePickerProps) => {
   const [validMessage, setValidMessage] = useState(false)
   const [addedMessage, setAddedMessage] = useState<string | undefined>(userMessage)
   const [inputError, setInputError] = useState<Error | null>(null)
+  const [badSymbols, setBadSymbols] = useState(false);
 
   function validate(e: any) {
     const message = e.target.value
     setMessage(message)
-    setValidMessage(message.length < 64)
+    if (message.contains('&') || message.contains('+') || message.contains('<')) {
+      setBadSymbols(true)
+      setValidMessage(false);
+    } else {
+      setValidMessage(message.length < 64)
+    }
   }
 
   function addMessage() {
@@ -50,6 +56,7 @@ const MessagePicker = ({ userMessage, onMessageValid }: MessagePickerProps) => {
         <Button onClick={addedMessage == undefined ? addMessage : clear} disabled={!validMessage && !addedMessage}>
           {addedMessage != undefined && <>Remove Message</>}
           {addedMessage == undefined && <>Add Message</>}
+          {badSymbols && <>{`Symbols not supported: +, &, and <`}</>}
         </Button>
       </Segment>
       <DisplayError error={inputError} />

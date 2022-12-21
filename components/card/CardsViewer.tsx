@@ -26,7 +26,7 @@ const CardsViewer = ({ cards, sent }: CardsViewerProps) => {
           <h3>Showing {cards.length} Cards {sent ? 'Sent' : 'Received'}.</h3>
         </Title>
         <CardGrid>
-          <FlipViewer items={range(0, cards.length)} renderItem={renderItem} />
+          <FlipViewer items={cards} renderItem={renderItem} />
         </CardGrid>
       </>
     )

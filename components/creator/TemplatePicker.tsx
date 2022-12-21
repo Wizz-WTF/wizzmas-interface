@@ -32,26 +32,16 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
     <>
       {numTemplates && (
         <VStack>
-          <MediumTitle>Select template:</MediumTitle>
+          <MediumTitle>1. Select template:</MediumTitle>
           {isLoading && <p>Loading templates...</p>}
           {isError && <p>Could not load templates...</p>}
-          <TemplateStack>
             <Picker items={range(0, Number(numTemplates))} renderItem={renderItem} onSelected={onTemplateSelected} />
-          </TemplateStack>
         </VStack>
       )}
     </>
   )
 }
 
-const TemplateStack = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-content: stretch;
-  flex-wrap: wrap;
-  gap: 1em;
-`
 
 const Item = styled.div`
   width: 250px;

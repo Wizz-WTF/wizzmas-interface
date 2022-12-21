@@ -3,39 +3,40 @@ import styled from 'styled-components'
 import { range } from '../../lib/ArrayUtil'
 import { Button, HStack, Segment, VStack } from './StyledComponents'
 
-type PickerProps = {
-  items: any[]
-  renderItem: (item: any) => ReactNode
-  onSelected: (selected: any) => void
-}
-const Picker = ({ items, renderItem, onSelected }: PickerProps) => {
-  const [selected, setSelected] = useState<any | undefined>(undefined)
+// type PickerProps = {
+//   items: any[]
+//   renderItem: (item: any) => ReactNode
+//   onSelected: (selected: any) => void
+// }
+// const Picker = ({ items, renderItem, onSelected }: PickerProps) => {
+//   const [selected, setSelected] = useState<any | undefined>(undefined)
 
-  return (
-    <>
-      {items.map((item, i) => (
-        <div
-          key={i}
-          onClick={() => {
-            setSelected(item)
-            onSelected(item)
-          }}
-        >
-          <Item selected={JSON.stringify(item) === JSON.stringify(selected)}>{renderItem(item)}</Item>
-        </div>
-      ))}
-    </>
-  )
-}
+//   return (
+//     <>
+//       {items.map((item, i) => (
+//         <div
+//           key={i}
+//           onClick={() => {
+//             setSelected(item)
+//             onSelected(item)
+//           }}
+//         >
+//           <Item selected={JSON.stringify(item) === JSON.stringify(selected)}>{renderItem(item)}</Item>
+//         </div>
+//       ))}
+//     </>
+//   )
+// }
 
 type PickerPaginatedProps = {
   items: any[]
-  perPage: number
+  perPage?: number | undefined
   renderItem: (item: any) => ReactNode
   onSelected: (selected: any) => void
 }
-export const PickerPaginated = ({ items, perPage, renderItem, onSelected }: PickerPaginatedProps) => {
-  const pages = Math.ceil(items.length / perPage)
+export const Picker = ({ items, perPage = undefined, renderItem, onSelected }: PickerPaginatedProps) => {
+  const itemsPerPage = perPage ?? items.length
+  const pages = Math.ceil(items.length / itemsPerPage)
 
   const [selected, setSelected] = useState<any | undefined>(undefined)
   const [currentPage, setCurrentPage] = useState(0)
@@ -55,7 +56,7 @@ export const PickerPaginated = ({ items, perPage, renderItem, onSelected }: Pick
     <Wrapper>
       <Items>
         <>
-          {items.slice(currentPage * perPage, currentPage * perPage + perPage).map((item, i) => (
+          {items.slice(currentPage * itemsPerPage, currentPage * itemsPerPage + itemsPerPage).map((item, i) => (
             <div
               key={i}
               onClick={() => {
@@ -114,7 +115,7 @@ const NavControls = styled.div`
 const Items = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
 `
@@ -151,8 +152,7 @@ const PageButton = styled.button<ButtonProps>`
     background-color: #ea4630;
   }
   :disabled {
-    color: darkgray;
-    background-color: gray;
-  }
-`
+    color: gray;
+    background-color: darkgray;
+  }`
 export default Picker

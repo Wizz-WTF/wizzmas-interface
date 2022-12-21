@@ -5,6 +5,7 @@ import Footer from '../../components/Footer'
 import { useRouter } from 'next/router'
 import { DynamicCardViewer, useCardMeta } from '../../components/card/DynamicCardViewer'
 import { AttributesBoxView } from '../../components/generic/Attributes'
+import { LargeTitle } from '../../components/generic/StyledComponents'
 
 const CardMetaView = ({ card }: { card: number }) => {
   const [cardMeta] = useCardMeta(card)
@@ -27,7 +28,7 @@ const ViewCard = () => {
 
         <Content>
           <FillSection>
-            <h2>Wizzmas Card #{card}</h2>
+            <LargeTitle>Wizzmas Card #{card}</LargeTitle>
             {!isNaN(card) && (
               <>
                 <CardWrapper>

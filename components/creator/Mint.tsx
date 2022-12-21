@@ -18,7 +18,11 @@ export type MintProps = {
   recipient: string | undefined
 }
 
-const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, recipient }: MintProps) => {
+type GetArtworksResult = {
+  balance: number | undefined,
+  isLoading: boolean
+}
+const useArtworks = (artworkType: number): GetArtworksResult => {
   const { address } = useAccount()
 
   const {
@@ -32,6 +36,12 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     args: [address, artworkType],
   })
 
+  return { balance: balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : undefined, isLoading: isBalanceOfArtworkLoading}
+}
+
+const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, recipient }: MintProps) => {
+  const { address } = useAccount()
+  const { balance: numArtworks, isLoading: isLoadingArtworks } = useArtworks(0)
   const {
     data: mintEnabled,
     isError: isMintEnabledError,
@@ -65,7 +75,6 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
     hash: data?.hash,
   })
 
-  let numArtworks = balanceOfArtwork ? BigNumber.from(balanceOfArtwork).toNumber() : 0
 
   return (
     <Wrapper>
@@ -82,8 +91,8 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
 
       <p>This card will be sent to {recipient}</p>
 
-      {isBalanceOfArtworkLoading && <SmallTitle>Checking your wallet for artworks...</SmallTitle>}
-      {!isBalanceOfArtworkLoading && numArtworks < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
+      {isLoadingArtworks && <SmallTitle>Checking your wallet for artworks...</SmallTitle>}
+      {!isLoadingArtworks && (numArtworks ?? 0) < 1 && <SmallTitle>You don't have any artworks!</SmallTitle>}
 
       <PrimaryButton disabled={!write || isLoading || !mintEnabled} onClick={() => write!()}>
         {isLoading ? 'Minting...' : !mintEnabled ? 'Mint Closed...' : 'Mint now'}
@@ -91,8 +100,8 @@ const Mint: NextPage<MintProps> = ({ artworkType, templateType, message, token, 
       {(prepareError || error) && <DisplayError error={prepareError || error} />}
       {isSuccess && (
         <>
-        <MediumTitle>Success! You've sent a Wizzmas Card to {recipient}!</MediumTitle>
-        <Link href="/send">-&gt; Send another Card</Link>
+          <MediumTitle>Success! You've sent a Wizzmas Card to {recipient}!</MediumTitle>
+          <Link href="/send">-&gt; Send another Card</Link>
         </>
       )}
     </Wrapper>

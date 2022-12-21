@@ -63,21 +63,24 @@ const Grid = styled.div`
 
 const Box = styled.div`
   padding: 1em;
-  background: #165B33;
+  background: #222;
   border-radius: 0.5em;
-  min-width: 400px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.5em;
 `
-export const TraitNameCentered = styled.div`
+
+const TraitNameCentered = styled.div`
   width: 100%;
   color: gray;
   text-align: center;
   font-size: 0.8em;
 `
-export const TraitValueCentered = styled.div`
+
+
+const TraitValueCentered = styled.div`
   width: 100%;
   color: white;
   text-align: center;

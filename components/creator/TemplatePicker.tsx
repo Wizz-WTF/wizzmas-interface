@@ -42,6 +42,14 @@ const TemplatePicker = ({ onTemplateSelected }: TemplatePickerProps) => {
   )
 }
 
+const TemplateStack = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: stretch;
+  flex-wrap: wrap;
+  gap: 1em;
+`
 
 const Item = styled.div`
   width: 250px;

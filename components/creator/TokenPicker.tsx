@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useAccount } from 'wagmi'
 import { FRWC_SOULS_ADDRESS, FRWC_WARRIORS_ADDRESS, FRWC_WIZARDS_ADDRESS } from '../../constants'
 import { getNFTs } from '../../lib/AlchemyUtil'
-import Picker from '../generic/Picker'
+import { PickerPaginated } from '../generic/Picker'
 import { fetchRunesWalkCycleFront } from '../../lib/TokenArtwork'
 import { HStack, MediumTitle, VStack } from '../generic/StyledComponents'
 
@@ -23,6 +23,8 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
   const [loadingTokens, setLoadingTokens] = useState(false)
   const [ownedTokens, setOwnedTokens] = useState<any | undefined>(undefined)
   const [ownedTokensError, setOwnedTokensError] = useState<Error | null>(null)
+
+  const tokensPerPage = 10
 
   if (!address) {
     return <p>Connect wallet to mint!</p>
@@ -59,36 +61,23 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
       <MediumTitle>Select NFT:</MediumTitle>
       {loadingTokens == true && <p>Checking wallet...</p>}
       {ownedTokensError && <p>Could not load wallet NFTs...</p>}
-      <TokenBox>
-      <HStack>
-        {ownedTokens && (
-          <>
-            <Picker
-              items={ownedTokens}
-              onSelected={(item) =>
-                onTokenSelected({
-                  tokenContract: item.contract.address,
-                  tokenId: BigNumber.from(item.id.tokenId).toNumber(),
-                })
-              }
-              renderItem={renderItem}
-            />
-            {ownedTokens.length == 0 && <p>You have no eligible tokens.</p>}
-          </>
-        )}
-      </HStack>
-      </TokenBox>
+      {ownedTokens && (
+        <PickerPaginated
+          items={ownedTokens}
+          perPage={tokensPerPage}
+          onSelected={(item) =>
+            onTokenSelected({
+              tokenContract: item.contract.address,
+              tokenId: BigNumber.from(item.id.tokenId).toNumber(),
+            })
+          }
+          renderItem={renderItem}
+        />
+      )}
+      {ownedTokens && ownedTokens.length == 0 && <p>You have no eligible tokens.</p>}
     </VStack>
   )
 }
-
-
-const TokenBox = styled.div`
-  height: 500px;
-  margin-left: 10%;
-  margin-right: 10%;
-  overflow: scroll;
-`
 
 const Item = styled.div`
   width: 100px;

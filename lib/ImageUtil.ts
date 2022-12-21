@@ -58,6 +58,10 @@ export async function card({ templatePath, senderImageUrl, message, width = 1500
     // Sender NFT
     var senderImage = undefined
     const senderImageSize = { width: height * 0.25, height: height * 0.25 }
+    const senderImagePadding = {
+      left: Math.floor(senderImageSize.height * 0.2),
+      top: Math.floor(senderImageSize.height * 2.7)
+    }
     if (senderImageUrl) {
       senderImage = await sharp(await urlToBuffer(senderImageUrl))
         .resize(Math.floor(senderImageSize.width), Math.floor(senderImageSize.height), {
@@ -71,18 +75,18 @@ export async function card({ templatePath, senderImageUrl, message, width = 1500
 
       overlays.push({
         input: senderImage,
-        left: Math.floor(senderImageSize.height * 0.9),
-        top: Math.floor(senderImageSize.height * 2.9),
+        ...senderImagePadding
       })
     }
 
     // Message
     var textOverlay = undefined
-    const textHeight = height / 4.5
-    const textWidth = width / 1.85
+    const textPaddingBottom = height / 15
+    const textHeight = (height / 4) - textPaddingBottom
+    const textWidth = (width / 3) * 2
     const textPadding = {
-      top: Math.floor(textHeight * 3.5),
-      left: Math.floor(width - textWidth * 1.1),
+      top: Math.floor(height - textHeight - textPaddingBottom),
+      left: Math.floor(width - textWidth * 1.13),
     }
     if (message) {
       const text = {
@@ -100,8 +104,7 @@ export async function card({ templatePath, senderImageUrl, message, width = 1500
 
       overlays.push({
         input: textOverlay,
-        top: textPadding.top,
-        left: textPadding.left,
+        ...textPadding
       })
     }
 

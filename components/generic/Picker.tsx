@@ -104,11 +104,11 @@ const Wrapper = styled.div`
 `
 
 const NavControls = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: no-wrap;
-  gap: 0;
+  gap: 0px;
 `
 
 const Items = styled.div`
@@ -139,10 +139,10 @@ type ButtonProps = {
 const PageButton = styled.button<ButtonProps>`
   font-family: Alagard;
   cursor: pointer;
-  font-size: large;
+  font-size: medium;
   color: ${(props) => (props.active ? 'black' : 'white')};
   border: none;
-  padding: 1em;
+  padding: 0.5em 0.7em 0.5em 0.7em;
   background-color: ${(props) => (props.active ? 'orange' : '#bb2528')};
   :hover {
     background-color: #ea4630;

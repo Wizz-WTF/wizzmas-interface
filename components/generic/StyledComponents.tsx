@@ -44,7 +44,7 @@ export const PrimaryButton = styled.button`
   cursor: pointer;
   font-size: x-large;
   padding: 0.8em;
-  flex-grow: 1;
+  // flex-grow: 1;
   color: white;
   border: none;
   background-color: #165B33;
@@ -66,7 +66,7 @@ export const Button = styled.button`
   cursor: pointer;
   font-size: large;
   padding: 0.5em;
-  flex-grow: 1;
+  // flex-grow: 1;
   color: white;
   border: none;
   background-color: #BB2528;

@@ -34,7 +34,7 @@ const RecipientInput = ({ userRecipient, onRecipientValid }: RecipientInputProps
 
   return (
     <VStack>
-      <MediumTitle>Enter recipient:</MediumTitle>
+      <MediumTitle>4. Enter recipient:</MediumTitle>
       <Segment>
         {addedAddress != undefined && <AddedAddress>{addedAddress}</AddedAddress>}
         {addedAddress == undefined && (

@@ -4,6 +4,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import CardSentViewer from '../../components/card/CardSentViewer'
 import CardReceivedViewer from '../../components/card/CardReceivedViewer'
+import { LargeTitle } from '../../components/generic/StyledComponents'
 
 const View = () => {
   const [domLoaded, setDomLoaded] = useState(false)
@@ -18,7 +19,7 @@ const View = () => {
 
         <Content>
           <FillSection>
-            <h2>Your Wizzmas Holiday Cards</h2>
+            <LargeTitle>Your Wizzmas Holiday Cards</LargeTitle>
             <CardSentViewer />
             <CardReceivedViewer />
           </FillSection>

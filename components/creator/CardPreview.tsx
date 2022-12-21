@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import styled from 'styled-components'
 import { SelectedToken } from './TokenPicker'
 import { getBaseUrl } from '../../constants'
-import { MediumTitle, VStack } from '../generic/StyledComponents'
+import { MediumTitle, SmallTitle, VStack } from '../generic/StyledComponents'
 
 export type CardPreviewProps = {
   templateType: number | undefined
@@ -22,17 +22,29 @@ const CardPreview: NextPage<CardPreviewProps> = ({ templateType, token, message 
   }
 
   return (
-    <VStack>
-      <MediumTitle>Card preview:</MediumTitle>
+    <Wrapper>
+      <SmallTitle>Card preview:</SmallTitle>
       <CardImage src={buildURL()} />
-    </VStack>
+    </Wrapper>
   )
 }
 
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0em;
+  text-align: center;
+`
 const CardImage = styled.img`
+  padding-left: 3em;
+  padding-right: 3em;
   width: 100%;
   height: 100%;
-  background: #333;
+  background: transparent;
 `
 
 export default CardPreview

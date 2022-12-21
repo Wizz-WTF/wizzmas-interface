@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { VStack, HStack, Button } from '../generic/StyledComponents'
+import { VStack, HStack, Button, PrimaryButton } from '../generic/StyledComponents'
 import CardPreview from './CardPreview'
 import TemplatePicker from './TemplatePicker'
 import MessagePicker from './MessagePicker'
@@ -24,60 +24,47 @@ const CardCreator = () => {
       return selectedToken != undefined
     }
     if (inputSelection == 2) {
-      return selectedMessage != undefined
-    }
-    if (inputSelection == 3) {
-      return recipient != undefined
+      return selectedMessage != undefined &&  recipient != undefined
     }
     return false
   }
 
   return (
-    <>
-      <Content>
-        <VStack>
-          <HStack>
-            <Button disabled={inputSelection == 0} onClick={() => setInputSelection(inputSelection - 1)}>
-              Previous
-            </Button>
-            <Button disabled={!nextEnabled()} onClick={() => setInputSelection(inputSelection + 1)}>
-              Next
-            </Button>
-          </HStack>
-          {inputSelection == 0 && <TemplatePicker onTemplateSelected={setSelectedTemplate} />}
-          {inputSelection == 1 && <TokenPicker onTokenSelected={setSelectedToken} />}
-          {inputSelection == 2 && <MessagePicker userMessage={selectedMessage} onMessageValid={setSelectedMessage} />}
-          {inputSelection == 3 && <RecipientInput userRecipient={recipient} onRecipientValid={setRecipient} />}
-          <Content2>
-            {inputSelection < 4 && (
-              <CardPreview templateType={selectedTemplate} token={selectedToken} message={selectedMessage} />
-            )}
-          </Content2>
-          {inputSelection == 4 && (
-            <Mint
-              artworkType={selectedCover}
-              templateType={selectedTemplate}
-              message={selectedMessage}
-              token={selectedToken}
-              recipient={recipient}
-            />
-          )}
-        </VStack>
-      </Content>
-    </>
+    <VStack>
+      <Nav>
+        <PrimaryButton disabled={inputSelection == 0} onClick={() => setInputSelection(inputSelection - 1)}>
+          &lt; Prev
+        </PrimaryButton>
+        <PrimaryButton disabled={!nextEnabled()} onClick={() => setInputSelection(inputSelection + 1)}>
+          Next &gt;
+        </PrimaryButton>
+      </Nav>
+      {inputSelection == 0 && <TemplatePicker onTemplateSelected={setSelectedTemplate} />}
+      {inputSelection == 1 && <TokenPicker onTokenSelected={setSelectedToken} />}
+      {inputSelection == 2 && <><MessagePicker userMessage={selectedMessage} onMessageValid={setSelectedMessage} /><RecipientInput userRecipient={recipient} onRecipientValid={setRecipient} /></>}
+      {inputSelection < 3 && (
+        <CardPreview templateType={selectedTemplate} token={selectedToken} message={selectedMessage} />
+      )}
+      {inputSelection == 3 && (
+        <Mint
+          artworkType={selectedCover}
+          templateType={selectedTemplate}
+          message={selectedMessage}
+          token={selectedToken}
+          recipient={recipient}
+        />
+      )}
+    </VStack>
   )
 }
 
-const Content2 = styled.div`
-  height: 100%;
-  width: 100%;
-`
-
-const Content = styled.div`
-  border-style: dashed;
-  border-color: #444;
-  padding: 1em;
-  margin: 1em;
+const Nav = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  // align-content: center;
+  flex-wrap: no-wrap;
+  // gap: 10em;
 `
 
 export default CardCreator

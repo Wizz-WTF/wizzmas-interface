@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import CardCreator from '../../components/creator/CardCreator'
+import { LargeTitle } from '../../components/generic/StyledComponents'
 
 const CardSender = () => {
   const [domLoaded, setDomLoaded] = useState(false)
@@ -15,12 +16,10 @@ const CardSender = () => {
       <>
         <Header />
 
-        <Content>
-          <FillSection>
-            <h2>Create & Send Wizzmas Holiday Cards</h2>
-            <CardCreator />
-          </FillSection>
-        </Content>
+        <FillSection>
+          <LargeTitle>Create & Send Wizzmas Holiday Cards</LargeTitle>
+          <CardCreator />
+        </FillSection>
 
         <Footer />
       </>

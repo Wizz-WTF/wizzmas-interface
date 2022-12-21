@@ -34,7 +34,7 @@ const MessagePicker = ({ userMessage, onMessageValid }: MessagePickerProps) => {
 
   return (
     <VStack>
-      <MediumTitle>Enter message:</MediumTitle>
+      <MediumTitle>3. Enter message:</MediumTitle>
       <Segment>
         {addedMessage != undefined && <AddedMessage>{addedMessage}</AddedMessage>}
         {addedMessage == undefined && (

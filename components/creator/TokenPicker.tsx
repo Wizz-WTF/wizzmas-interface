@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { useAccount } from 'wagmi'
 import { FRWC_SOULS_ADDRESS, FRWC_WARRIORS_ADDRESS, FRWC_WIZARDS_ADDRESS } from '../../constants'
 import { getNFTs } from '../../lib/AlchemyUtil'
-import { PickerPaginated } from '../generic/Picker'
+import Picker from '../generic/Picker'
 import { fetchRunesWalkCycleFront } from '../../lib/TokenArtwork'
-import { HStack, MediumTitle, VStack } from '../generic/StyledComponents'
+import { MediumTitle, VStack } from '../generic/StyledComponents'
 
 export interface SelectedToken {
   tokenContract: string
@@ -24,7 +24,7 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
   const [ownedTokens, setOwnedTokens] = useState<any | undefined>(undefined)
   const [ownedTokensError, setOwnedTokensError] = useState<Error | null>(null)
 
-  const tokensPerPage = 10
+  const tokensPerPage = 3
 
   if (!address) {
     return <p>Connect wallet to mint!</p>
@@ -58,11 +58,11 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
 
   return (
     <VStack>
-      <MediumTitle>Select NFT:</MediumTitle>
+      <MediumTitle>2. Select NFT:</MediumTitle>
       {loadingTokens == true && <p>Checking wallet...</p>}
       {ownedTokensError && <p>Could not load wallet NFTs...</p>}
       {ownedTokens && (
-        <PickerPaginated
+        <Picker
           items={ownedTokens}
           perPage={tokensPerPage}
           onSelected={(item) =>

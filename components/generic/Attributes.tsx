@@ -73,13 +73,13 @@ const Box = styled.div`
 `
 export const TraitNameCentered = styled.div`
   width: 100%;
-  color: gray;
+  color: red;
   text-align: center;
   font-size: 0.8em;
 `
 export const TraitValueCentered = styled.div`
   width: 100%;
-  color: white;
+  color: green;
   text-align: center;
   font-size: 1.2em;
 `

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const LargeTitle = styled.h1`
-  color: yellow;
+  color: white;
 `
 
 export const MediumTitle = styled.h2`
@@ -45,11 +45,11 @@ export const PrimaryButton = styled.button`
   font-size: x-large;
   padding: 0.8em;
   flex-grow: 1;
-  color: black;
+  color: white;
   border: none;
-  background-color: yellow;
+  background-color: green;
   :hover {
-    background-color: orange;
+    background-color: red;
   }
   :active {
     background-color: red;

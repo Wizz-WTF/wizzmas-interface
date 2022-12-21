@@ -17,9 +17,11 @@ const Covers = () => {
         <Header />
 
         <Content>
+          <BackgroundFill>
           <FillSection>
             <ArtworkMinter />
           </FillSection>
+          </BackgroundFill>
           <Section>
             <MintFAQ />
           </Section>
@@ -30,6 +32,10 @@ const Covers = () => {
     )
   }
 }
+
+export const BackgroundFill = styled.div`
+  background-image: url("static/img/wood-bg.png") 
+`
 
 export const Content = styled.div`
   display: flex;
@@ -42,7 +48,6 @@ export const Content = styled.div`
 `
 
 export const FillSection = styled.div`
-  background: #111;
   width: 100%;
   padding: 2em;
   display: flex;

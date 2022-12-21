@@ -43,6 +43,7 @@ const MessagePicker = ({ userMessage, onMessageValid }: MessagePickerProps) => {
       <MediumTitle>3. Enter message:</MediumTitle>
       <Segment>
         {addedMessage != undefined && <AddedMessage>{addedMessage}</AddedMessage>}
+        {badSymbols && <>{`Symbols not supported: +, &, and <`}</>}
         {addedMessage == undefined && (
           <TextInput
             required
@@ -56,7 +57,6 @@ const MessagePicker = ({ userMessage, onMessageValid }: MessagePickerProps) => {
         <Button onClick={addedMessage == undefined ? addMessage : clear} disabled={!validMessage && !addedMessage}>
           {addedMessage != undefined && <>Remove Message</>}
           {addedMessage == undefined && <>Add Message</>}
-          {badSymbols && <>{`Symbols not supported: +, &, and <`}</>}
         </Button>
       </Segment>
       <DisplayError error={inputError} />

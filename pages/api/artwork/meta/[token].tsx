@@ -14,7 +14,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   const metaPath = path.resolve('./data/artwork', `meta/${token}.json`)
   const json = JSON.parse(fs.readFileSync(metaPath, 'utf-8'))
-  res.setHeader('Content-Type', 'image/png')
   res.setHeader('Cache-Control', `s-maxage=${24 * 6 * 60}, stale-while-revalidate=20`)
   return res.status(200).end(JSON.stringify(json))
 }

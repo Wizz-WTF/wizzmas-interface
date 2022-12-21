@@ -21,8 +21,7 @@ const Picker = ({ items, renderItem, onSelected }: PickerProps) => {
             onSelected(item)
           }}
         >
-          {JSON.stringify(item) === JSON.stringify(selected) && <Selected>{renderItem(item)}</Selected>}
-          {JSON.stringify(item) !== JSON.stringify(selected) && <Unselected>{renderItem(item)}</Unselected>}
+          <Item selected={JSON.stringify(item) === JSON.stringify(selected)}>{renderItem(item)}</Item>
         </div>
       ))}
     </>
@@ -54,27 +53,6 @@ export const PickerPaginated = ({ items, perPage, renderItem, onSelected }: Pick
 
   return (
     <Wrapper>
-      {pages > 1 && (
-        <NavControls>
-          <HStack>
-            <Button disabled={!prevEnabled} onClick={prev}>
-              &lt;
-            </Button>
-            {range(0, pages).map((i) => (
-              <Button
-                onClick={() => {
-                  setCurrentPage(i)
-                }}
-              >
-                {i + 1}
-              </Button>
-            ))}
-            <Button disabled={!nextEnabled} onClick={next}>
-              &gt;
-            </Button>
-          </HStack>
-        </NavControls>
-      )}
       <Items>
         <>
           {items.slice(currentPage * perPage, currentPage * perPage + perPage).map((item, i) => (
@@ -85,12 +63,33 @@ export const PickerPaginated = ({ items, perPage, renderItem, onSelected }: Pick
                 onSelected(item)
               }}
             >
-              {JSON.stringify(item) === JSON.stringify(selected) && <Selected>{renderItem(item)}</Selected>}
-              {JSON.stringify(item) !== JSON.stringify(selected) && <Unselected>{renderItem(item)}</Unselected>}
+              <Item selected={JSON.stringify(item) === JSON.stringify(selected)}>{renderItem(item)}</Item>
             </div>
           ))}
         </>
       </Items>
+      {pages > 1 && (
+        <NavControls>
+          <HStack>
+            <PageButton disabled={!prevEnabled} onClick={prev} active={false}>
+              &lt;
+            </PageButton>
+            {range(0, pages).map((i) => (
+              <PageButton
+                onClick={() => {
+                  setCurrentPage(i)
+                }}
+                active={currentPage == i}
+              >
+                {i + 1}
+              </PageButton>
+            ))}
+            <PageButton disabled={!nextEnabled} onClick={next} active={false}>
+              &gt;
+            </PageButton>
+          </HStack>
+        </NavControls>
+      )}
     </Wrapper>
   )
 }
@@ -120,26 +119,40 @@ const Items = styled.div`
   gap: 1em;
 `
 
-const Unselected = styled.div`
-  color: #aaa;
+type ItemProps = {
+  selected: boolean
+}
+const Item = styled.div<ItemProps>`
+  color: ${(props) => (props.selected ? '#f8b229' : '#aaa')};
   cursor: pointer;
   border: dashed;
-  border-color: #222;
+  border-color: ${(props) => (props.selected ? '#f8b229' : '#222')};
   :hover {
     border: dashed;
     border-color: #f8b229;
   }
 `
 
-const Selected = styled.div`
-  color: #f8b229;
+type ButtonProps = {
+  active: boolean
+}
+const PageButton = styled.button<ButtonProps>`
+  font-family: Alagard;
   cursor: pointer;
-  border: dashed;
-  border-color: #f8b229;
+  font-size: large;
+  color: ${(props) => (props.active ? 'black' : 'white')};
+  border: none;
+  padding: 1em;
+  background-color: ${(props) => (props.active ? 'orange' : '#bb2528')};
   :hover {
-    border: dashed;
-    border-color: #f8b229;
+    background-color: #ea4630;
+  }
+  :active {
+    background-color: #ea4630;
+  }
+  :disabled {
+    color: darkgray;
+    background-color: gray;
   }
 `
-
 export default Picker

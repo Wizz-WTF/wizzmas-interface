@@ -61,6 +61,7 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
       <MediumTitle>Select NFT:</MediumTitle>
       {loadingTokens == true && <p>Checking wallet...</p>}
       {ownedTokensError && <p>Could not load wallet NFTs...</p>}
+      <Picker>
       {ownedTokens && (
         <PickerPaginated
           items={ownedTokens}
@@ -74,10 +75,20 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
           renderItem={renderItem}
         />
       )}
+      </Picker>
       {ownedTokens && ownedTokens.length == 0 && <p>You have no eligible tokens.</p>}
     </VStack>
   )
 }
+
+const Picker = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: stretch;
+  flex-wrap: wrap;
+  gap: 1em;
+`
 
 const Item = styled.div`
   width: 100px;

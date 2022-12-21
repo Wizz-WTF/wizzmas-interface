@@ -5,9 +5,10 @@ import FlipViewer from '../generic/FlipViewer'
 import { DynamicCardViewer } from './DynamicCardViewer'
 
 type CardsViewerProps = {
-  cards: number[]
+  cards: number[],
+  sent: boolean,
 }
-const CardsViewer = ({ cards }: CardsViewerProps) => {
+const CardsViewer = ({ cards, sent }: CardsViewerProps) => {
   const renderItem = (item: number) => {
     return (
       <Link href={`/view/${item}`}>
@@ -18,11 +19,11 @@ const CardsViewer = ({ cards }: CardsViewerProps) => {
     )
   }
 
-  if (cards.length > 0) {
+  if (cards.length >= 0) {
     return (
       <>
         <Title>
-          <h3>Showing {cards.length} Cards.</h3>
+          <h3>Showing {cards.length} Cards {sent ? 'Sent' : 'Received'}.</h3>
         </Title>
         <CardGrid>
           <FlipViewer items={range(0, cards.length)} renderItem={renderItem} />

@@ -28,7 +28,7 @@ const CardSentViewer = () => {
     return <SmallTitle>Could not read contract information!</SmallTitle>
   }
 
-  return <>{senderIds != undefined && <CardsViewer cards={senderIds as number[]} />}</>
+  return <>{senderIds != undefined && <CardsViewer cards={senderIds as number[]} sent={true} />}</>
 }
 
 export default CardSentViewer

@@ -24,7 +24,7 @@ const TokenPicker = ({ onTokenSelected }: SelectedTokenProps) => {
   const [ownedTokens, setOwnedTokens] = useState<any | undefined>(undefined)
   const [ownedTokensError, setOwnedTokensError] = useState<Error | null>(null)
 
-  const tokensPerPage = 10
+  const tokensPerPage = 3
 
   if (!address) {
     return <p>Connect wallet to mint!</p>

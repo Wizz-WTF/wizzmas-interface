@@ -4,6 +4,9 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ArtworkMinter from '../../components/artwork/ArtworkMinter'
 import MintFAQ from '../../components/faq/MintFAQ'
+// @ts-ignore
+import SleighRide from "../data/music/sleigh_ride_8bit.mp3";
+
 
 const Covers = () => {
   const [domLoaded, setDomLoaded] = useState(false)
@@ -25,6 +28,7 @@ const Covers = () => {
           </Section>
         </Content>
 
+        <audio src={SleighRide} autoPlay={true}></audio>
         <Footer />
       </>
     )
